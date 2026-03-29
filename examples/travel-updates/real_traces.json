@@ -1,0 +1,2847 @@
+{
+  "runs": [
+    {
+      "id": "run_1",
+      "status": "waiting",
+      "steps": [
+        {
+          "id": "run_1_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_1_step_3",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/28",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_1_step_2"
+          ],
+          "spawned_by": "run_1_step_2"
+        },
+        {
+          "id": "run_1_step_4",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_1_step_2"
+          ],
+          "spawned_by": "run_1_step_2"
+        },
+        {
+          "id": "run_1_step_6",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_1_step_5"
+          ],
+          "spawned_by": "run_1_step_5"
+        },
+        {
+          "id": "run_1_step_7",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28 (flight OR hotel OR booking OR reservation OR airbnb OR airline OR confirmation OR travel OR train OR ferry)",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_1_step_5"
+          ],
+          "spawned_by": "run_1_step_5"
+        },
+        {
+          "id": "run_1_step_8",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28 (flight OR hotel OR booking OR reservation OR airbnb OR airline OR confirmation OR travel OR train OR ferry)",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_1_step_5"
+          ],
+          "spawned_by": "run_1_step_5"
+        }
+      ]
+    },
+    {
+      "id": "run_2",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_2_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_2_step_3",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "travel flight hotel booking confirmation after:2026/03/28",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_2_step_2"
+          ],
+          "spawned_by": "run_2_step_2"
+        },
+        {
+          "id": "run_2_step_4",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation after:2026/03/28",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_2_step_2"
+          ],
+          "spawned_by": "run_2_step_2"
+        },
+        {
+          "id": "run_2_step_5",
+          "tool": "sheets_get_spreadsheet",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2"
+          },
+          "depends_on": [
+            "run_2_step_2"
+          ],
+          "spawned_by": "run_2_step_2"
+        },
+        {
+          "id": "run_2_step_6",
+          "tool": "sheets_get_spreadsheet",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_2_step_2"
+          ],
+          "spawned_by": "run_2_step_2"
+        },
+        {
+          "id": "run_2_step_8",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1",
+            "sheet_name": "Flights",
+            "max_rows": "50"
+          },
+          "depends_on": [
+            "run_2_step_7"
+          ],
+          "spawned_by": "run_2_step_7"
+        },
+        {
+          "id": "run_2_step_9",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2",
+            "sheet_name": "🏨 Hotels",
+            "max_rows": "50"
+          },
+          "depends_on": [
+            "run_2_step_7"
+          ],
+          "spawned_by": "run_2_step_7"
+        },
+        {
+          "id": "run_2_step_10",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28/10:00",
+            "account": "acct_4",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_2_step_7"
+          ],
+          "spawned_by": "run_2_step_7"
+        },
+        {
+          "id": "run_2_step_11",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28/10:00",
+            "account": "acct_5",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_2_step_7"
+          ],
+          "spawned_by": "run_2_step_7"
+        },
+        {
+          "id": "run_2_step_13",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28",
+            "account": "acct_5",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_2_step_12"
+          ],
+          "spawned_by": "run_2_step_12"
+        },
+        {
+          "id": "run_2_step_14",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28",
+            "account": "acct_4",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_2_step_12"
+          ],
+          "spawned_by": "run_2_step_12"
+        },
+        {
+          "id": "run_2_step_15",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28",
+            "account": "acct_2",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_2_step_12"
+          ],
+          "spawned_by": "run_2_step_12"
+        },
+        {
+          "id": "run_2_step_17",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_1"
+          },
+          "depends_on": [
+            "run_2_step_16"
+          ],
+          "spawned_by": "run_2_step_16"
+        },
+        {
+          "id": "run_2_step_18",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_4",
+            "thread_id": "thread_2"
+          },
+          "depends_on": [
+            "run_2_step_16"
+          ],
+          "spawned_by": "run_2_step_16"
+        },
+        {
+          "id": "run_2_step_19",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_4",
+            "thread_id": "thread_3"
+          },
+          "depends_on": [
+            "run_2_step_16"
+          ],
+          "spawned_by": "run_2_step_16"
+        }
+      ]
+    },
+    {
+      "id": "run_3",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_3_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_3_step_3",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "travel flight hotel booking confirmation after:2026/03/28",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_3_step_2"
+          ],
+          "spawned_by": "run_3_step_2"
+        },
+        {
+          "id": "run_3_step_4",
+          "tool": "sheets_get_spreadsheet",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2"
+          },
+          "depends_on": [
+            "run_3_step_2"
+          ],
+          "spawned_by": "run_3_step_2"
+        },
+        {
+          "id": "run_3_step_5",
+          "tool": "sheets_get_spreadsheet",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_3_step_2"
+          ],
+          "spawned_by": "run_3_step_2"
+        },
+        {
+          "id": "run_3_step_6",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation after:2026/03/28",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_3_step_2"
+          ],
+          "spawned_by": "run_3_step_2"
+        },
+        {
+          "id": "run_3_step_8",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28/06:00",
+            "account": "acct_4",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_3_step_7"
+          ],
+          "spawned_by": "run_3_step_7"
+        },
+        {
+          "id": "run_3_step_9",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2",
+            "sheet_name": "🏨 Hotels",
+            "max_rows": "50"
+          },
+          "depends_on": [
+            "run_3_step_7"
+          ],
+          "spawned_by": "run_3_step_7"
+        },
+        {
+          "id": "run_3_step_10",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1",
+            "sheet_name": "Flights",
+            "max_rows": "50"
+          },
+          "depends_on": [
+            "run_3_step_7"
+          ],
+          "spawned_by": "run_3_step_7"
+        },
+        {
+          "id": "run_3_step_11",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28/06:00",
+            "account": "acct_5",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_3_step_7"
+          ],
+          "spawned_by": "run_3_step_7"
+        },
+        {
+          "id": "run_3_step_13",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27",
+            "account": "acct_2",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_3_step_12"
+          ],
+          "spawned_by": "run_3_step_12"
+        },
+        {
+          "id": "run_3_step_14",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27",
+            "account": "acct_4",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_3_step_12"
+          ],
+          "spawned_by": "run_3_step_12"
+        },
+        {
+          "id": "run_3_step_15",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27",
+            "account": "acct_5",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_3_step_12"
+          ],
+          "spawned_by": "run_3_step_12"
+        }
+      ]
+    },
+    {
+      "id": "run_4",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_4_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_4_step_3",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2"
+          },
+          "depends_on": [
+            "run_4_step_2"
+          ],
+          "spawned_by": "run_4_step_2"
+        },
+        {
+          "id": "run_4_step_4",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_4_step_2"
+          ],
+          "spawned_by": "run_4_step_2"
+        },
+        {
+          "id": "run_4_step_5",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking after:2026/03/28",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_4_step_2"
+          ],
+          "spawned_by": "run_4_step_2"
+        },
+        {
+          "id": "run_4_step_6",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "travel flight hotel booking after:2026/03/28",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_4_step_2"
+          ],
+          "spawned_by": "run_4_step_2"
+        },
+        {
+          "id": "run_4_step_8",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation after:2026/03/28",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_4_step_7"
+          ],
+          "spawned_by": "run_4_step_7"
+        },
+        {
+          "id": "run_4_step_9",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation after:2026/03/28",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_4_step_7"
+          ],
+          "spawned_by": "run_4_step_7"
+        },
+        {
+          "id": "run_4_step_11",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_4_step_10"
+          ],
+          "spawned_by": "run_4_step_10"
+        },
+        {
+          "id": "run_4_step_12",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_4_step_10"
+          ],
+          "spawned_by": "run_4_step_10"
+        },
+        {
+          "id": "run_4_step_13",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_4_step_10"
+          ],
+          "spawned_by": "run_4_step_10"
+        }
+      ]
+    },
+    {
+      "id": "run_5",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_5_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_5_step_3",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_5_step_2"
+          ],
+          "spawned_by": "run_5_step_2"
+        },
+        {
+          "id": "run_5_step_4",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_5_step_2"
+          ],
+          "spawned_by": "run_5_step_2"
+        },
+        {
+          "id": "run_5_step_5",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_5_step_2"
+          ],
+          "spawned_by": "run_5_step_2"
+        },
+        {
+          "id": "run_5_step_7",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27 subject:(flight OR hotel OR booking OR confirmation OR reservation OR itinerary OR airbnb OR travel)",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_5_step_6"
+          ],
+          "spawned_by": "run_5_step_6"
+        },
+        {
+          "id": "run_5_step_8",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27 subject:(flight OR hotel OR booking OR confirmation OR reservation OR itinerary OR airbnb OR travel)",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_5_step_6"
+          ],
+          "spawned_by": "run_5_step_6"
+        },
+        {
+          "id": "run_5_step_10",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_5_step_9"
+          ],
+          "spawned_by": "run_5_step_9"
+        },
+        {
+          "id": "run_5_step_11",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/28",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_5_step_9"
+          ],
+          "spawned_by": "run_5_step_9"
+        }
+      ]
+    },
+    {
+      "id": "run_6",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_6_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_6_step_3",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27 travel flight hotel booking confirmation",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_6_step_2"
+          ],
+          "spawned_by": "run_6_step_2"
+        },
+        {
+          "id": "run_6_step_4",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/27 travel flight hotel booking confirmation",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_6_step_2"
+          ],
+          "spawned_by": "run_6_step_2"
+        },
+        {
+          "id": "run_6_step_6",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_6_step_5"
+          ],
+          "spawned_by": "run_6_step_5"
+        },
+        {
+          "id": "run_6_step_7",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_6_step_5"
+          ],
+          "spawned_by": "run_6_step_5"
+        },
+        {
+          "id": "run_6_step_9",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27",
+            "account": "acct_4",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_6_step_8"
+          ],
+          "spawned_by": "run_6_step_8"
+        },
+        {
+          "id": "run_6_step_10",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27",
+            "account": "acct_2",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_6_step_8"
+          ],
+          "spawned_by": "run_6_step_8"
+        },
+        {
+          "id": "run_6_step_11",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27",
+            "account": "acct_5",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_6_step_8"
+          ],
+          "spawned_by": "run_6_step_8"
+        }
+      ]
+    },
+    {
+      "id": "run_7",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_7_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_7_step_3",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_7_step_2"
+          ],
+          "spawned_by": "run_7_step_2"
+        },
+        {
+          "id": "run_7_step_4",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/27 travel flight hotel booking confirmation",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_7_step_2"
+          ],
+          "spawned_by": "run_7_step_2"
+        },
+        {
+          "id": "run_7_step_6",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_7_step_5"
+          ],
+          "spawned_by": "run_7_step_5"
+        },
+        {
+          "id": "run_7_step_7",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_7_step_5"
+          ],
+          "spawned_by": "run_7_step_5"
+        },
+        {
+          "id": "run_7_step_8",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_7_step_5"
+          ],
+          "spawned_by": "run_7_step_5"
+        },
+        {
+          "id": "run_7_step_10",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27",
+            "account": "acct_4",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_7_step_9"
+          ],
+          "spawned_by": "run_7_step_9"
+        },
+        {
+          "id": "run_7_step_11",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27",
+            "account": "acct_5",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_7_step_9"
+          ],
+          "spawned_by": "run_7_step_9"
+        }
+      ]
+    },
+    {
+      "id": "run_8",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_8_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_8_step_3",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27 travel flight hotel booking confirmation",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_8_step_2"
+          ],
+          "spawned_by": "run_8_step_2"
+        },
+        {
+          "id": "run_8_step_4",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27 travel flight hotel booking confirmation",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_8_step_2"
+          ],
+          "spawned_by": "run_8_step_2"
+        },
+        {
+          "id": "run_8_step_5",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/27 travel flight hotel booking confirmation",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_8_step_2"
+          ],
+          "spawned_by": "run_8_step_2"
+        },
+        {
+          "id": "run_8_step_7",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "account": "acct_2",
+            "max_results": "30",
+            "labels": "INBOX"
+          },
+          "depends_on": [
+            "run_8_step_6"
+          ],
+          "spawned_by": "run_8_step_6"
+        },
+        {
+          "id": "run_8_step_8",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "account": "acct_4",
+            "max_results": "30",
+            "labels": "INBOX"
+          },
+          "depends_on": [
+            "run_8_step_6"
+          ],
+          "spawned_by": "run_8_step_6"
+        },
+        {
+          "id": "run_8_step_9",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "max_results": "30",
+            "labels": "INBOX"
+          },
+          "depends_on": [
+            "run_8_step_6"
+          ],
+          "spawned_by": "run_8_step_6"
+        },
+        {
+          "id": "run_8_step_11",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_4"
+          },
+          "depends_on": [
+            "run_8_step_10"
+          ],
+          "spawned_by": "run_8_step_10"
+        },
+        {
+          "id": "run_8_step_12",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_5"
+          },
+          "depends_on": [
+            "run_8_step_10"
+          ],
+          "spawned_by": "run_8_step_10"
+        },
+        {
+          "id": "run_8_step_13",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_6"
+          },
+          "depends_on": [
+            "run_8_step_10"
+          ],
+          "spawned_by": "run_8_step_10"
+        },
+        {
+          "id": "run_8_step_14",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_7"
+          },
+          "depends_on": [
+            "run_8_step_10"
+          ],
+          "spawned_by": "run_8_step_10"
+        },
+        {
+          "id": "run_8_step_15",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_8"
+          },
+          "depends_on": [
+            "run_8_step_10"
+          ],
+          "spawned_by": "run_8_step_10"
+        },
+        {
+          "id": "run_8_step_17",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_8_step_16"
+          ],
+          "spawned_by": "run_8_step_16"
+        },
+        {
+          "id": "run_8_step_18",
+          "tool": "gmail_get_attachment",
+          "status": "completed",
+          "params": {
+            "account": "acct_5"
+          },
+          "depends_on": [
+            "run_8_step_16"
+          ],
+          "spawned_by": "run_8_step_16"
+        },
+        {
+          "id": "run_8_step_19",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2"
+          },
+          "depends_on": [
+            "run_8_step_16"
+          ],
+          "spawned_by": "run_8_step_16"
+        }
+      ]
+    },
+    {
+      "id": "run_9",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_9_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_9_step_3",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27 travel flight hotel booking confirmation",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_9_step_2"
+          ],
+          "spawned_by": "run_9_step_2"
+        },
+        {
+          "id": "run_9_step_4",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/27 travel flight hotel booking confirmation",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_9_step_2"
+          ],
+          "spawned_by": "run_9_step_2"
+        },
+        {
+          "id": "run_9_step_6",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_9_step_5"
+          ],
+          "spawned_by": "run_9_step_5"
+        },
+        {
+          "id": "run_9_step_7",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_9_step_5"
+          ],
+          "spawned_by": "run_9_step_5"
+        },
+        {
+          "id": "run_9_step_8",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_9_step_5"
+          ],
+          "spawned_by": "run_9_step_5"
+        },
+        {
+          "id": "run_9_step_10",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "account": "acct_2",
+            "max_results": "10",
+            "labels": "INBOX"
+          },
+          "depends_on": [
+            "run_9_step_9"
+          ],
+          "spawned_by": "run_9_step_9"
+        },
+        {
+          "id": "run_9_step_11",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "max_results": "10",
+            "labels": "INBOX"
+          },
+          "depends_on": [
+            "run_9_step_9"
+          ],
+          "spawned_by": "run_9_step_9"
+        },
+        {
+          "id": "run_9_step_12",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "account": "acct_4",
+            "max_results": "10",
+            "labels": "INBOX"
+          },
+          "depends_on": [
+            "run_9_step_9"
+          ],
+          "spawned_by": "run_9_step_9"
+        },
+        {
+          "id": "run_9_step_14",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27 (flight OR hotel OR booking OR airbnb OR confirmation OR itinerary OR check-in)",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_9_step_13"
+          ],
+          "spawned_by": "run_9_step_13"
+        },
+        {
+          "id": "run_9_step_15",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27 (flight OR hotel OR booking OR airbnb OR confirmation OR itinerary OR check-in)",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_9_step_13"
+          ],
+          "spawned_by": "run_9_step_13"
+        },
+        {
+          "id": "run_9_step_16",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27 (flight OR hotel OR booking OR airbnb OR confirmation OR itinerary OR check-in OR checkin OR visa)",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_9_step_13"
+          ],
+          "spawned_by": "run_9_step_13"
+        },
+        {
+          "id": "run_9_step_17",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_5"
+          },
+          "depends_on": [
+            "run_9_step_13"
+          ],
+          "spawned_by": "run_9_step_13"
+        }
+      ]
+    },
+    {
+      "id": "run_10",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_10_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_10_step_3",
+          "tool": "sheets_get_spreadsheet",
+          "status": "completed",
+          "params": {
+            "account": "acct_6",
+            "spreadsheet": "spreadsheet_2"
+          },
+          "depends_on": [
+            "run_10_step_2"
+          ],
+          "spawned_by": "run_10_step_2"
+        },
+        {
+          "id": "run_10_step_4",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/27",
+            "account": "acct_1",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_10_step_2"
+          ],
+          "spawned_by": "run_10_step_2"
+        },
+        {
+          "id": "run_10_step_5",
+          "tool": "sheets_get_spreadsheet",
+          "status": "completed",
+          "params": {
+            "account": "acct_6",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_10_step_2"
+          ],
+          "spawned_by": "run_10_step_2"
+        },
+        {
+          "id": "run_10_step_6",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27",
+            "account": "acct_2",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_10_step_2"
+          ],
+          "spawned_by": "run_10_step_2"
+        },
+        {
+          "id": "run_10_step_8",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_6",
+            "spreadsheet": "spreadsheet_1",
+            "sheet_name": "Flights",
+            "max_rows": "50"
+          },
+          "depends_on": [
+            "run_10_step_7"
+          ],
+          "spawned_by": "run_10_step_7"
+        },
+        {
+          "id": "run_10_step_9",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_6",
+            "spreadsheet": "spreadsheet_2",
+            "sheet_name": "🏨 Hotels",
+            "max_rows": "50"
+          },
+          "depends_on": [
+            "run_10_step_7"
+          ],
+          "spawned_by": "run_10_step_7"
+        },
+        {
+          "id": "run_10_step_10",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/27",
+            "account": "acct_4",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_10_step_7"
+          ],
+          "spawned_by": "run_10_step_7"
+        }
+      ]
+    },
+    {
+      "id": "run_11",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_11_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_11_step_3",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26 travel flight hotel booking reservation",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_11_step_2"
+          ],
+          "spawned_by": "run_11_step_2"
+        },
+        {
+          "id": "run_11_step_4",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/26 travel flight hotel booking reservation",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_11_step_2"
+          ],
+          "spawned_by": "run_11_step_2"
+        },
+        {
+          "id": "run_11_step_6",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26 travel flight hotel booking reservation",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_11_step_5"
+          ],
+          "spawned_by": "run_11_step_5"
+        },
+        {
+          "id": "run_11_step_7",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26 travel flight hotel booking reservation",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_11_step_5"
+          ],
+          "spawned_by": "run_11_step_5"
+        },
+        {
+          "id": "run_11_step_9",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26/18",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_11_step_8"
+          ],
+          "spawned_by": "run_11_step_8"
+        },
+        {
+          "id": "run_11_step_10",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26/18",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_11_step_8"
+          ],
+          "spawned_by": "run_11_step_8"
+        },
+        {
+          "id": "run_11_step_11",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26/18",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_11_step_8"
+          ],
+          "spawned_by": "run_11_step_8"
+        }
+      ]
+    },
+    {
+      "id": "run_12",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_12_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_12_step_3",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26",
+            "account": "acct_2",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_12_step_2"
+          ],
+          "spawned_by": "run_12_step_2"
+        },
+        {
+          "id": "run_12_step_4",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/26",
+            "account": "acct_1",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_12_step_2"
+          ],
+          "spawned_by": "run_12_step_2"
+        },
+        {
+          "id": "run_12_step_6",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26",
+            "account": "acct_4",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_12_step_5"
+          ],
+          "spawned_by": "run_12_step_5"
+        },
+        {
+          "id": "run_12_step_7",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "(flight OR hotel OR booking OR airbnb OR airline OR reservation OR visa OR travel OR itinerary) after:2026/03/26",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_12_step_5"
+          ],
+          "spawned_by": "run_12_step_5"
+        }
+      ]
+    },
+    {
+      "id": "run_13",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_13_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_13_step_3",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26 travel flight hotel booking confirmation",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_13_step_2"
+          ],
+          "spawned_by": "run_13_step_2"
+        },
+        {
+          "id": "run_13_step_4",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/26 travel flight hotel booking confirmation",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_13_step_2"
+          ],
+          "spawned_by": "run_13_step_2"
+        },
+        {
+          "id": "run_13_step_6",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_13_step_5"
+          ],
+          "spawned_by": "run_13_step_5"
+        },
+        {
+          "id": "run_13_step_7",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_13_step_5"
+          ],
+          "spawned_by": "run_13_step_5"
+        },
+        {
+          "id": "run_13_step_8",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_13_step_5"
+          ],
+          "spawned_by": "run_13_step_5"
+        },
+        {
+          "id": "run_13_step_10",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26 subject:(flight OR hotel OR booking OR confirmation OR itinerary OR check-in OR travel)",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_13_step_9"
+          ],
+          "spawned_by": "run_13_step_9"
+        },
+        {
+          "id": "run_13_step_11",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_13_step_9"
+          ],
+          "spawned_by": "run_13_step_9"
+        },
+        {
+          "id": "run_13_step_13",
+          "tool": "sheets_get_spreadsheet",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2"
+          },
+          "depends_on": [
+            "run_13_step_12"
+          ],
+          "spawned_by": "run_13_step_12"
+        },
+        {
+          "id": "run_13_step_14",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_7"
+          },
+          "depends_on": [
+            "run_13_step_12"
+          ],
+          "spawned_by": "run_13_step_12"
+        },
+        {
+          "id": "run_13_step_15",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_8"
+          },
+          "depends_on": [
+            "run_13_step_12"
+          ],
+          "spawned_by": "run_13_step_12"
+        },
+        {
+          "id": "run_13_step_17",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2",
+            "sheet_name": "🏨 Hotels",
+            "max_rows": "15"
+          },
+          "depends_on": [
+            "run_13_step_16"
+          ],
+          "spawned_by": "run_13_step_16"
+        },
+        {
+          "id": "run_13_step_18",
+          "tool": "llm_look_at",
+          "status": "completed",
+          "depends_on": [
+            "run_13_step_16"
+          ],
+          "spawned_by": "run_13_step_16"
+        },
+        {
+          "id": "run_13_step_20",
+          "tool": "sheets_update_values",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2",
+            "range": "🏨 Hotels!H2:J2"
+          },
+          "depends_on": [
+            "run_13_step_19"
+          ],
+          "spawned_by": "run_13_step_19"
+        }
+      ]
+    },
+    {
+      "id": "run_14",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_14_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_14_step_3",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_14_step_2"
+          ],
+          "spawned_by": "run_14_step_2"
+        },
+        {
+          "id": "run_14_step_4",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_14_step_2"
+          ],
+          "spawned_by": "run_14_step_2"
+        },
+        {
+          "id": "run_14_step_6",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26 flight OR hotel OR booking OR reservation OR airbnb OR confirmation",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_14_step_5"
+          ],
+          "spawned_by": "run_14_step_5"
+        },
+        {
+          "id": "run_14_step_7",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26 flight OR hotel OR booking OR reservation OR airbnb OR confirmation",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_14_step_5"
+          ],
+          "spawned_by": "run_14_step_5"
+        },
+        {
+          "id": "run_14_step_9",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26",
+            "account": "acct_4",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_14_step_8"
+          ],
+          "spawned_by": "run_14_step_8"
+        },
+        {
+          "id": "run_14_step_10",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26",
+            "account": "acct_2",
+            "max_results": "30"
+          },
+          "depends_on": [
+            "run_14_step_8"
+          ],
+          "spawned_by": "run_14_step_8"
+        }
+      ]
+    },
+    {
+      "id": "run_15",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_15_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_15_step_3",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/26 travel flight hotel booking confirmation",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_15_step_2"
+          ],
+          "spawned_by": "run_15_step_2"
+        },
+        {
+          "id": "run_15_step_4",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/26 travel flight hotel booking confirmation",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_15_step_2"
+          ],
+          "spawned_by": "run_15_step_2"
+        },
+        {
+          "id": "run_15_step_6",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_5",
+            "max_results": "10"
+          },
+          "depends_on": [
+            "run_15_step_5"
+          ],
+          "spawned_by": "run_15_step_5"
+        },
+        {
+          "id": "run_15_step_7",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_4",
+            "max_results": "10"
+          },
+          "depends_on": [
+            "run_15_step_5"
+          ],
+          "spawned_by": "run_15_step_5"
+        },
+        {
+          "id": "run_15_step_9",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "account": "acct_2",
+            "max_results": "10",
+            "labels": "INBOX"
+          },
+          "depends_on": [
+            "run_15_step_8"
+          ],
+          "spawned_by": "run_15_step_8"
+        },
+        {
+          "id": "run_15_step_10",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "account": "acct_4",
+            "max_results": "10",
+            "labels": "INBOX"
+          },
+          "depends_on": [
+            "run_15_step_8"
+          ],
+          "spawned_by": "run_15_step_8"
+        },
+        {
+          "id": "run_15_step_11",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "max_results": "10",
+            "labels": "INBOX"
+          },
+          "depends_on": [
+            "run_15_step_8"
+          ],
+          "spawned_by": "run_15_step_8"
+        },
+        {
+          "id": "run_15_step_13",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_6"
+          },
+          "depends_on": [
+            "run_15_step_12"
+          ],
+          "spawned_by": "run_15_step_12"
+        },
+        {
+          "id": "run_15_step_14",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_9"
+          },
+          "depends_on": [
+            "run_15_step_12"
+          ],
+          "spawned_by": "run_15_step_12"
+        },
+        {
+          "id": "run_15_step_15",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_8"
+          },
+          "depends_on": [
+            "run_15_step_12"
+          ],
+          "spawned_by": "run_15_step_12"
+        },
+        {
+          "id": "run_15_step_17",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_15_step_16"
+          ],
+          "spawned_by": "run_15_step_16"
+        },
+        {
+          "id": "run_15_step_19",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2"
+          },
+          "depends_on": [
+            "run_15_step_18"
+          ],
+          "spawned_by": "run_15_step_18"
+        },
+        {
+          "id": "run_15_step_21",
+          "tool": "sheets_update_values",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2",
+            "range": "🏨 Hotels!L2:L3"
+          },
+          "depends_on": [
+            "run_15_step_20"
+          ],
+          "spawned_by": "run_15_step_20"
+        },
+        {
+          "id": "run_15_step_22",
+          "tool": "sheets_update_values",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2",
+            "range": "🏨 Hotels!O2"
+          },
+          "depends_on": [
+            "run_15_step_20"
+          ],
+          "spawned_by": "run_15_step_20"
+        }
+      ]
+    },
+    {
+      "id": "run_16",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_16_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_16_step_3",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/25 travel flight hotel booking confirmation",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_16_step_2"
+          ],
+          "spawned_by": "run_16_step_2"
+        },
+        {
+          "id": "run_16_step_4",
+          "tool": "sheets_get_spreadsheet",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_16_step_2"
+          ],
+          "spawned_by": "run_16_step_2"
+        },
+        {
+          "id": "run_16_step_5",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/25 travel flight hotel booking confirmation",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_16_step_2"
+          ],
+          "spawned_by": "run_16_step_2"
+        },
+        {
+          "id": "run_16_step_7",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_16_step_6"
+          ],
+          "spawned_by": "run_16_step_6"
+        },
+        {
+          "id": "run_16_step_8",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1",
+            "sheet_name": "Flights"
+          },
+          "depends_on": [
+            "run_16_step_6"
+          ],
+          "spawned_by": "run_16_step_6"
+        },
+        {
+          "id": "run_16_step_9",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_2"
+          },
+          "depends_on": [
+            "run_16_step_6"
+          ],
+          "spawned_by": "run_16_step_6"
+        },
+        {
+          "id": "run_16_step_10",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_3"
+          },
+          "depends_on": [
+            "run_16_step_6"
+          ],
+          "spawned_by": "run_16_step_6"
+        },
+        {
+          "id": "run_16_step_11",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_16_step_6"
+          ],
+          "spawned_by": "run_16_step_6"
+        }
+      ]
+    },
+    {
+      "id": "run_17",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_17_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_17_step_3",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/25 travel flight hotel booking confirmation",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_17_step_2"
+          ],
+          "spawned_by": "run_17_step_2"
+        },
+        {
+          "id": "run_17_step_4",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_17_step_2"
+          ],
+          "spawned_by": "run_17_step_2"
+        },
+        {
+          "id": "run_17_step_6",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation after:2026/03/25",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_17_step_5"
+          ],
+          "spawned_by": "run_17_step_5"
+        },
+        {
+          "id": "run_17_step_7",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation after:2026/03/25",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_17_step_5"
+          ],
+          "spawned_by": "run_17_step_5"
+        },
+        {
+          "id": "run_17_step_8",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation after:2026/03/25",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_17_step_5"
+          ],
+          "spawned_by": "run_17_step_5"
+        }
+      ]
+    },
+    {
+      "id": "run_18",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_18_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_18_step_3",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "travel flight hotel booking confirmation reservation after:2026/03/25",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_18_step_2"
+          ],
+          "spawned_by": "run_18_step_2"
+        },
+        {
+          "id": "run_18_step_4",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation reservation after:2026/03/25",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_18_step_2"
+          ],
+          "spawned_by": "run_18_step_2"
+        },
+        {
+          "id": "run_18_step_5",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation reservation after:2026/03/25",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_18_step_2"
+          ],
+          "spawned_by": "run_18_step_2"
+        },
+        {
+          "id": "run_18_step_7",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/25",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_18_step_6"
+          ],
+          "spawned_by": "run_18_step_6"
+        },
+        {
+          "id": "run_18_step_8",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/25",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_18_step_6"
+          ],
+          "spawned_by": "run_18_step_6"
+        },
+        {
+          "id": "run_18_step_9",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "travel flight hotel booking confirmation reservation after:2026/03/25",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_18_step_6"
+          ],
+          "spawned_by": "run_18_step_6"
+        }
+      ]
+    },
+    {
+      "id": "run_19",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_19_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_19_step_3",
+          "tool": "daslab_trigger_schedule",
+          "status": "completed",
+          "depends_on": [
+            "run_19_step_2"
+          ],
+          "spawned_by": "run_19_step_2"
+        }
+      ]
+    },
+    {
+      "id": "run_21",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_21_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_21_step_3",
+          "tool": "daslab_trigger_schedule",
+          "status": "completed",
+          "depends_on": [
+            "run_21_step_2"
+          ],
+          "spawned_by": "run_21_step_2"
+        }
+      ]
+    },
+    {
+      "id": "run_22",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_22_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_22_step_3",
+          "tool": "daslab_trigger_schedule",
+          "status": "completed",
+          "depends_on": [
+            "run_22_step_2"
+          ],
+          "spawned_by": "run_22_step_2"
+        }
+      ]
+    },
+    {
+      "id": "run_23",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_23_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_23_step_3",
+          "tool": "daslab_trigger_schedule",
+          "status": "completed",
+          "depends_on": [
+            "run_23_step_2"
+          ],
+          "spawned_by": "run_23_step_2"
+        }
+      ]
+    },
+    {
+      "id": "run_24",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_24_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_24_step_3",
+          "tool": "daslab_trigger_schedule",
+          "status": "completed",
+          "depends_on": [
+            "run_24_step_2"
+          ],
+          "spawned_by": "run_24_step_2"
+        }
+      ]
+    },
+    {
+      "id": "run_25",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_25_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_25_step_3",
+          "tool": "daslab_trigger_schedule",
+          "status": "completed",
+          "depends_on": [
+            "run_25_step_2"
+          ],
+          "spawned_by": "run_25_step_2"
+        },
+        {
+          "id": "run_25_step_5",
+          "tool": "daslab_list_jobs",
+          "status": "completed",
+          "depends_on": [
+            "run_25_step_4"
+          ],
+          "spawned_by": "run_25_step_4"
+        },
+        {
+          "id": "run_25_step_7",
+          "tool": "daslab_list_jobs",
+          "status": "completed",
+          "depends_on": [
+            "run_25_step_6"
+          ],
+          "spawned_by": "run_25_step_6"
+        },
+        {
+          "id": "run_25_step_9",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/25 subject:(flight OR hotel OR booking OR reservation OR travel OR airline OR airport)",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_25_step_8"
+          ],
+          "spawned_by": "run_25_step_8"
+        },
+        {
+          "id": "run_25_step_10",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/25 subject:(flight OR hotel OR booking OR reservation OR travel OR airline OR airport)",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_25_step_8"
+          ],
+          "spawned_by": "run_25_step_8"
+        },
+        {
+          "id": "run_25_step_11",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/25 subject:(flight OR hotel OR booking OR reservation OR travel OR airline OR airport)",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_25_step_8"
+          ],
+          "spawned_by": "run_25_step_8"
+        }
+      ]
+    },
+    {
+      "id": "run_26",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_26_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_26_step_3",
+          "tool": "daslab_trigger_schedule",
+          "status": "completed",
+          "depends_on": [
+            "run_26_step_2"
+          ],
+          "spawned_by": "run_26_step_2"
+        },
+        {
+          "id": "run_26_step_5",
+          "tool": "daslab_list_jobs",
+          "status": "completed",
+          "depends_on": [
+            "run_26_step_4"
+          ],
+          "spawned_by": "run_26_step_4"
+        },
+        {
+          "id": "run_26_step_7",
+          "tool": "daslab_list_jobs",
+          "status": "completed",
+          "depends_on": [
+            "run_26_step_6"
+          ],
+          "spawned_by": "run_26_step_6"
+        },
+        {
+          "id": "run_26_step_9",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/25",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_26_step_8"
+          ],
+          "spawned_by": "run_26_step_8"
+        },
+        {
+          "id": "run_26_step_10",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/25",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_26_step_8"
+          ],
+          "spawned_by": "run_26_step_8"
+        },
+        {
+          "id": "run_26_step_12",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/25",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_26_step_11"
+          ],
+          "spawned_by": "run_26_step_11"
+        },
+        {
+          "id": "run_26_step_13",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/25 (flight OR hotel OR booking OR airbnb OR airline OR reservation OR confirmation OR itinerary OR visa)",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_26_step_11"
+          ],
+          "spawned_by": "run_26_step_11"
+        }
+      ]
+    },
+    {
+      "id": "run_27",
+      "status": "failed",
+      "steps": [
+        {
+          "id": "run_27_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        },
+        {
+          "id": "run_27_step_3",
+          "tool": "daslab_trigger_schedule",
+          "status": "completed",
+          "depends_on": [
+            "run_27_step_2"
+          ],
+          "spawned_by": "run_27_step_2"
+        },
+        {
+          "id": "run_27_step_5",
+          "tool": "daslab_list_jobs",
+          "status": "completed",
+          "depends_on": [
+            "run_27_step_4"
+          ],
+          "spawned_by": "run_27_step_4"
+        },
+        {
+          "id": "run_27_step_7",
+          "tool": "daslab_list_jobs",
+          "status": "completed",
+          "depends_on": [
+            "run_27_step_6"
+          ],
+          "spawned_by": "run_27_step_6"
+        },
+        {
+          "id": "run_27_step_9",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/25 travel flight hotel booking confirmation",
+            "account": "acct_2",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_27_step_8"
+          ],
+          "spawned_by": "run_27_step_8"
+        },
+        {
+          "id": "run_27_step_10",
+          "tool": "gmail_search",
+          "status": "failed",
+          "params": {
+            "query": "after:2026/03/25 travel flight hotel booking confirmation",
+            "account": "acct_1",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_27_step_8"
+          ],
+          "spawned_by": "run_27_step_8"
+        },
+        {
+          "id": "run_27_step_12",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/25 travel flight hotel booking confirmation",
+            "account": "acct_4",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_27_step_11"
+          ],
+          "spawned_by": "run_27_step_11"
+        },
+        {
+          "id": "run_27_step_13",
+          "tool": "gmail_search",
+          "status": "completed",
+          "params": {
+            "query": "after:2026/03/25 travel flight hotel booking confirmation",
+            "account": "acct_5",
+            "max_results": "20"
+          },
+          "depends_on": [
+            "run_27_step_11"
+          ],
+          "spawned_by": "run_27_step_11"
+        },
+        {
+          "id": "run_27_step_15",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "account": "acct_4",
+            "max_results": "20",
+            "labels": "INBOX"
+          },
+          "depends_on": [
+            "run_27_step_14"
+          ],
+          "spawned_by": "run_27_step_14"
+        },
+        {
+          "id": "run_27_step_16",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "account": "acct_2",
+            "max_results": "20",
+            "labels": "INBOX"
+          },
+          "depends_on": [
+            "run_27_step_14"
+          ],
+          "spawned_by": "run_27_step_14"
+        },
+        {
+          "id": "run_27_step_17",
+          "tool": "gmail_list_threads",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "max_results": "20",
+            "labels": "INBOX"
+          },
+          "depends_on": [
+            "run_27_step_14"
+          ],
+          "spawned_by": "run_27_step_14"
+        },
+        {
+          "id": "run_27_step_19",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_10"
+          },
+          "depends_on": [
+            "run_27_step_18"
+          ],
+          "spawned_by": "run_27_step_18"
+        },
+        {
+          "id": "run_27_step_20",
+          "tool": "gmail_get_thread",
+          "status": "completed",
+          "params": {
+            "account": "acct_5",
+            "thread_id": "thread_11"
+          },
+          "depends_on": [
+            "run_27_step_18"
+          ],
+          "spawned_by": "run_27_step_18"
+        },
+        {
+          "id": "run_27_step_22",
+          "tool": "llm_look_at",
+          "status": "completed",
+          "depends_on": [
+            "run_27_step_21"
+          ],
+          "spawned_by": "run_27_step_21"
+        },
+        {
+          "id": "run_27_step_23",
+          "tool": "sheets_read",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1"
+          },
+          "depends_on": [
+            "run_27_step_21"
+          ],
+          "spawned_by": "run_27_step_21"
+        },
+        {
+          "id": "run_27_step_25",
+          "tool": "sheets_get_values",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1",
+            "range": "Flights!A1:O6"
+          },
+          "depends_on": [
+            "run_27_step_24"
+          ],
+          "spawned_by": "run_27_step_24"
+        },
+        {
+          "id": "run_27_step_27",
+          "tool": "sheets_update_values",
+          "status": "completed",
+          "params": {
+            "account": "acct_3",
+            "spreadsheet": "spreadsheet_1",
+            "range": "Flights!L3:L5"
+          },
+          "depends_on": [
+            "run_27_step_26"
+          ],
+          "spawned_by": "run_27_step_26"
+        }
+      ]
+    },
+    {
+      "id": "run_20",
+      "status": "completed",
+      "steps": [
+        {
+          "id": "run_20_step_1",
+          "tool": "prompt_user",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,358 @@
+{
+  "_autocompile": {
+    "strategy": "asp",
+    "source_runs": 177,
+    "core_tools": [
+      "gmail_get_thread",
+      "gmail_list_threads",
+      "gmail_search",
+      "sheets_read",
+      "sheets_update_values"
+    ],
+    "phases": {
+      "0": [
+        "gmail_search"
+      ],
+      "1": [
+        "sheets_read"
+      ],
+      "2": [
+        "gmail_list_threads"
+      ],
+      "3": [
+        "gmail_get_thread"
+      ],
+      "4": [
+        "sheets_update_values"
+      ]
+    }
+  },
+  "_boundary": {
+    "compiled_steps": 11,
+    "total_observed_tool_types": 11,
+    "core_tool_types": 5,
+    "compilation_ratio": 0.45
+  },
+  "_analysis": {
+    "conditionals": [
+      {
+        "tool": "sheets_read",
+        "depends_on": "gmail_search",
+        "rate": "164/171"
+      },
+      {
+        "tool": "gmail_list_threads",
+        "depends_on": "gmail_search",
+        "rate": "91/171"
+      },
+      {
+        "tool": "gmail_get_thread",
+        "depends_on": "gmail_search",
+        "rate": "56/171"
+      },
+      {
+        "tool": "gmail_get_thread",
+        "depends_on": "sheets_read",
+        "rate": "56/164"
+      },
+      {
+        "tool": "llm_look_at",
+        "depends_on": "gmail_get_thread",
+        "rate": "13/56"
+      },
+      {
+        "tool": "llm_look_at",
+        "depends_on": "sheets_update_values",
+        "rate": "13/53"
+      },
+      {
+        "tool": "sheets_update_values",
+        "depends_on": "gmail_search",
+        "rate": "53/171"
+      },
+      {
+        "tool": "sheets_update_values",
+        "depends_on": "sheets_read",
+        "rate": "53/164"
+      },
+      {
+        "tool": "sheets_update_values",
+        "depends_on": "gmail_get_thread",
+        "rate": "53/56"
+      },
+      {
+        "tool": "daslab_list_jobs",
+        "depends_on": "daslab_trigger_schedule",
+        "rate": "3/8"
+      },
+      {
+        "tool": "sheets_get_values",
+        "depends_on": "daslab_trigger_schedule",
+        "rate": "1/8"
+      },
+      {
+        "tool": "sheets_get_values",
+        "depends_on": "daslab_list_jobs",
+        "rate": "1/3"
+      }
+    ],
+    "fusion_candidates": [
+      [
+        "gmail_search",
+        "gmail_get_thread"
+      ],
+      [
+        "gmail_list_threads",
+        "gmail_get_thread"
+      ]
+    ],
+    "mutually_exclusive": [
+      [
+        "gmail_get_attachment",
+        "sheets_get_spreadsheet"
+      ],
+      [
+        "daslab_trigger_schedule",
+        "sheets_get_spreadsheet"
+      ],
+      [
+        "daslab_list_jobs",
+        "sheets_get_spreadsheet"
+      ],
+      [
+        "daslab_trigger_schedule",
+        "gmail_get_attachment"
+      ],
+      [
+        "daslab_list_jobs",
+        "gmail_get_attachment"
+      ],
+      [
+        "gmail_get_attachment",
+        "llm_look_at"
+      ],
+      [
+        "gmail_get_attachment",
+        "sheets_update_values"
+      ],
+      [
+        "sheets_get_spreadsheet",
+        "sheets_get_values"
+      ],
+      [
+        "gmail_get_attachment",
+        "sheets_get_values"
+      ]
+    ],
+    "conflicting_orders_resolved": [
+      {
+        "chose": "gmail_search -> sheets_read"
+      },
+      {
+        "chose": "gmail_search -> gmail_list_threads"
+      },
+      {
+        "chose": "sheets_read -> gmail_list_threads"
+      },
+      {
+        "chose": "sheets_read -> gmail_get_thread"
+      }
+    ],
+    "variable_params": {
+      "gmail_search": [
+        "query"
+      ],
+      "gmail_get_thread": [
+        "thread_id"
+      ],
+      "sheets_update_values": [
+        "range",
+        "target_sheet",
+        "target_col_start",
+        "target_col_end",
+        "target_row_start",
+        "target_row_end",
+        "target_col_count",
+        "target_row_count",
+        "value_row_count",
+        "value_col_count"
+      ]
+    }
+  },
+  "calls": [
+    {
+      "id": "step_1_gmail_search_0",
+      "tool": "gmail_search",
+      "input": {
+        "max_results": "20",
+        "account": "acct_2"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_1_gmail_search_1",
+      "tool": "gmail_search",
+      "input": {
+        "max_results": "20",
+        "account": "acct_4"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_1_gmail_search_2",
+      "tool": "gmail_search",
+      "input": {
+        "max_results": "20",
+        "account": "acct_5"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_2_sheets_read",
+      "tool": "sheets_read",
+      "input": {
+        "spreadsheet": [
+          "spreadsheet_1",
+          "spreadsheet_2"
+        ],
+        "account": "acct_3",
+        "sheet_name": [
+          "Flights",
+          "Hotels"
+        ],
+        "max_rows": "50"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2"
+      ]
+    },
+    {
+      "id": "step_3_gmail_list_threads_0",
+      "tool": "gmail_list_threads",
+      "input": {
+        "labels": "INBOX",
+        "account": "acct_4"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read"
+      ]
+    },
+    {
+      "id": "step_3_gmail_list_threads_1",
+      "tool": "gmail_list_threads",
+      "input": {
+        "labels": "INBOX",
+        "account": "acct_5"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read"
+      ]
+    },
+    {
+      "id": "step_3_gmail_list_threads_2",
+      "tool": "gmail_list_threads",
+      "input": {
+        "labels": "INBOX",
+        "account": "acct_2"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read"
+      ]
+    },
+    {
+      "id": "step_4_gmail_get_thread_0",
+      "tool": "gmail_get_thread",
+      "input": {
+        "account": "acct_5"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read",
+        "step_3_gmail_list_threads_0",
+        "step_3_gmail_list_threads_1",
+        "step_3_gmail_list_threads_2"
+      ]
+    },
+    {
+      "id": "step_4_gmail_get_thread_1",
+      "tool": "gmail_get_thread",
+      "input": {
+        "account": "acct_4"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read",
+        "step_3_gmail_list_threads_0",
+        "step_3_gmail_list_threads_1",
+        "step_3_gmail_list_threads_2"
+      ]
+    },
+    {
+      "id": "step_4_gmail_get_thread_2",
+      "tool": "gmail_get_thread",
+      "input": {
+        "account": "acct_2"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read",
+        "step_3_gmail_list_threads_0",
+        "step_3_gmail_list_threads_1",
+        "step_3_gmail_list_threads_2"
+      ]
+    },
+    {
+      "id": "step_5_sheets_update_values",
+      "tool": "sheets_update_values",
+      "input": {
+        "spreadsheet": [
+          "spreadsheet_2",
+          "spreadsheet_1"
+        ],
+        "account": "acct_3",
+        "value_type": [
+          "detail_fill",
+          "status_flip"
+        ],
+        "value_constant": "Completed \u2705"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read",
+        "step_3_gmail_list_threads_0",
+        "step_3_gmail_list_threads_1",
+        "step_3_gmail_list_threads_2",
+        "step_4_gmail_get_thread_0",
+        "step_4_gmail_get_thread_1",
+        "step_4_gmail_get_thread_2"
+      ]
+    }
+  ]
+}

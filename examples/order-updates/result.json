@@ -1,0 +1,620 @@
+{
+  "_autocompile": {
+    "strategy": "asp",
+    "source_runs": 118,
+    "core_tools": [
+      "gmail_get_thread",
+      "gmail_search",
+      "sheets_read",
+      "tracking_get_status"
+    ],
+    "phases": {
+      "0": [
+        "sheets_read"
+      ],
+      "1": [
+        "gmail_search"
+      ],
+      "2": [
+        "gmail_get_thread"
+      ],
+      "3": [
+        "tracking_get_status"
+      ]
+    }
+  },
+  "_boundary": {
+    "compiled_steps": 4,
+    "total_observed_tool_types": 22,
+    "core_tool_types": 4,
+    "compilation_ratio": 0.18
+  },
+  "_analysis": {
+    "conditionals": [
+      {
+        "tool": "gmail_search",
+        "depends_on": "sheets_read",
+        "rate": "109/114"
+      },
+      {
+        "tool": "gmail_get_thread",
+        "depends_on": "sheets_read",
+        "rate": "52/114"
+      },
+      {
+        "tool": "tracking_get_status",
+        "depends_on": "sheets_read",
+        "rate": "55/114"
+      },
+      {
+        "tool": "sheets_update_values",
+        "depends_on": "sheets_read",
+        "rate": "29/114"
+      },
+      {
+        "tool": "gmail_list_threads",
+        "depends_on": "sheets_read",
+        "rate": "17/114"
+      },
+      {
+        "tool": "sheets_insert_rows",
+        "depends_on": "gmail_get_thread",
+        "rate": "7/52"
+      },
+      {
+        "tool": "sheets_delete_rows",
+        "depends_on": "sheets_update_values",
+        "rate": "4/29"
+      },
+      {
+        "tool": "tracking_get_list",
+        "depends_on": "sheets_read",
+        "rate": "29/114"
+      },
+      {
+        "tool": "tracking_get_list",
+        "depends_on": "gmail_search",
+        "rate": "29/109"
+      },
+      {
+        "tool": "tracking_register",
+        "depends_on": "sheets_read",
+        "rate": "26/114"
+      },
+      {
+        "tool": "sandbox_run",
+        "depends_on": "http_request",
+        "rate": "1/3"
+      },
+      {
+        "tool": "sheets_get_cells",
+        "depends_on": "sheets_get_values",
+        "rate": "2/5"
+      },
+      {
+        "tool": "tracking_detect_carrier",
+        "depends_on": "tracking_get_status",
+        "rate": "8/55"
+      }
+    ],
+    "fusion_candidates": [],
+    "mutually_exclusive": [
+      [
+        "gmail_get_profile",
+        "gmail_get_thread"
+      ],
+      [
+        "sheets_get_cells",
+        "tracking_get_status"
+      ],
+      [
+        "sheets_append_rows",
+        "tracking_get_status"
+      ],
+      [
+        "gmail_get_profile",
+        "tracking_get_status"
+      ],
+      [
+        "sheets_list",
+        "tracking_get_status"
+      ],
+      [
+        "http_request",
+        "sheets_update_values"
+      ],
+      [
+        "sandbox_run",
+        "sheets_update_values"
+      ],
+      [
+        "sheets_get_cells",
+        "sheets_update_values"
+      ],
+      [
+        "sheets_clear",
+        "sheets_update_values"
+      ],
+      [
+        "sheets_append_rows",
+        "sheets_update_values"
+      ],
+      [
+        "gmail_get_profile",
+        "sheets_update_values"
+      ],
+      [
+        "sheets_list",
+        "sheets_update_values"
+      ],
+      [
+        "sheets_delete_rows",
+        "sheets_get_values"
+      ],
+      [
+        "http_request",
+        "sheets_get_values"
+      ],
+      [
+        "sandbox_run",
+        "sheets_get_values"
+      ],
+      [
+        "sheets_clear",
+        "sheets_get_values"
+      ],
+      [
+        "sheets_append_rows",
+        "sheets_get_values"
+      ],
+      [
+        "gmail_get_profile",
+        "sheets_get_values"
+      ],
+      [
+        "daslab_plan",
+        "gmail_list_threads"
+      ],
+      [
+        "daslab_update_plan",
+        "gmail_list_threads"
+      ],
+      [
+        "gmail_get_profile",
+        "gmail_list_threads"
+      ],
+      [
+        "sheets_get_values",
+        "sheets_insert_rows"
+      ],
+      [
+        "gmail_list_threads",
+        "sheets_insert_rows"
+      ],
+      [
+        "http_request",
+        "sheets_insert_rows"
+      ],
+      [
+        "sandbox_run",
+        "sheets_insert_rows"
+      ],
+      [
+        "sheets_get_cells",
+        "sheets_insert_rows"
+      ],
+      [
+        "sheets_clear",
+        "sheets_insert_rows"
+      ],
+      [
+        "sheets_append_rows",
+        "sheets_insert_rows"
+      ],
+      [
+        "gmail_get_profile",
+        "sheets_insert_rows"
+      ],
+      [
+        "http_request",
+        "sheets_get_spreadsheet"
+      ],
+      [
+        "sandbox_run",
+        "sheets_get_spreadsheet"
+      ],
+      [
+        "sheets_clear",
+        "sheets_get_spreadsheet"
+      ],
+      [
+        "sheets_append_rows",
+        "sheets_get_spreadsheet"
+      ],
+      [
+        "gmail_get_profile",
+        "sheets_get_spreadsheet"
+      ],
+      [
+        "http_request",
+        "sheets_delete_rows"
+      ],
+      [
+        "sandbox_run",
+        "sheets_delete_rows"
+      ],
+      [
+        "sheets_clear",
+        "sheets_delete_rows"
+      ],
+      [
+        "sheets_append_rows",
+        "sheets_delete_rows"
+      ],
+      [
+        "gmail_get_profile",
+        "sheets_delete_rows"
+      ],
+      [
+        "daslab_plan",
+        "tracking_get_list"
+      ],
+      [
+        "daslab_update_plan",
+        "tracking_get_list"
+      ],
+      [
+        "sandbox_run",
+        "tracking_get_list"
+      ],
+      [
+        "sheets_append_rows",
+        "tracking_get_list"
+      ],
+      [
+        "gmail_get_profile",
+        "tracking_get_list"
+      ],
+      [
+        "sheets_list",
+        "tracking_get_list"
+      ],
+      [
+        "daslab_plan",
+        "http_request"
+      ],
+      [
+        "daslab_update_plan",
+        "http_request"
+      ],
+      [
+        "gmail_list_threads",
+        "http_request"
+      ],
+      [
+        "gmail_get_profile",
+        "http_request"
+      ],
+      [
+        "daslab_plan",
+        "tracking_register"
+      ],
+      [
+        "daslab_update_plan",
+        "tracking_register"
+      ],
+      [
+        "sheets_get_values",
+        "tracking_register"
+      ],
+      [
+        "sheets_delete_rows",
+        "tracking_register"
+      ],
+      [
+        "sheets_get_cells",
+        "tracking_register"
+      ],
+      [
+        "sheets_append_rows",
+        "tracking_register"
+      ],
+      [
+        "gmail_get_profile",
+        "tracking_register"
+      ],
+      [
+        "sheets_list",
+        "tracking_register"
+      ],
+      [
+        "daslab_plan",
+        "sandbox_run"
+      ],
+      [
+        "daslab_update_plan",
+        "sandbox_run"
+      ],
+      [
+        "gmail_list_threads",
+        "sandbox_run"
+      ],
+      [
+        "gmail_get_profile",
+        "sandbox_run"
+      ],
+      [
+        "daslab_plan",
+        "sheets_get_cells"
+      ],
+      [
+        "daslab_update_plan",
+        "sheets_get_cells"
+      ],
+      [
+        "sheets_delete_rows",
+        "sheets_get_cells"
+      ],
+      [
+        "http_request",
+        "sheets_get_cells"
+      ],
+      [
+        "sandbox_run",
+        "sheets_get_cells"
+      ],
+      [
+        "sheets_clear",
+        "sheets_get_cells"
+      ],
+      [
+        "sheets_append_rows",
+        "sheets_get_cells"
+      ],
+      [
+        "gmail_get_profile",
+        "sheets_get_cells"
+      ],
+      [
+        "daslab_plan",
+        "sheets_clear"
+      ],
+      [
+        "daslab_update_plan",
+        "sheets_clear"
+      ],
+      [
+        "gmail_list_threads",
+        "sheets_clear"
+      ],
+      [
+        "http_request",
+        "sheets_clear"
+      ],
+      [
+        "sandbox_run",
+        "sheets_clear"
+      ],
+      [
+        "sheets_append_rows",
+        "sheets_clear"
+      ],
+      [
+        "gmail_get_profile",
+        "sheets_clear"
+      ],
+      [
+        "daslab_plan",
+        "sheets_append_rows"
+      ],
+      [
+        "daslab_update_plan",
+        "sheets_append_rows"
+      ],
+      [
+        "gmail_list_threads",
+        "sheets_append_rows"
+      ],
+      [
+        "http_request",
+        "sheets_append_rows"
+      ],
+      [
+        "sandbox_run",
+        "sheets_append_rows"
+      ],
+      [
+        "gmail_get_profile",
+        "sheets_append_rows"
+      ],
+      [
+        "daslab_plan",
+        "gmail_get_profile"
+      ],
+      [
+        "daslab_update_plan",
+        "gmail_get_profile"
+      ],
+      [
+        "gmail_get_thread",
+        "sheets_list"
+      ],
+      [
+        "daslab_plan",
+        "sheets_list"
+      ],
+      [
+        "daslab_update_plan",
+        "sheets_list"
+      ],
+      [
+        "sheets_get_values",
+        "sheets_list"
+      ],
+      [
+        "gmail_list_threads",
+        "sheets_list"
+      ],
+      [
+        "sheets_insert_rows",
+        "sheets_list"
+      ],
+      [
+        "sheets_get_spreadsheet",
+        "sheets_list"
+      ],
+      [
+        "sheets_delete_rows",
+        "sheets_list"
+      ],
+      [
+        "http_request",
+        "sheets_list"
+      ],
+      [
+        "sandbox_run",
+        "sheets_list"
+      ],
+      [
+        "sheets_get_cells",
+        "sheets_list"
+      ],
+      [
+        "sheets_clear",
+        "sheets_list"
+      ],
+      [
+        "sheets_append_rows",
+        "sheets_list"
+      ],
+      [
+        "sheets_update_values",
+        "tracking_detect_carrier"
+      ],
+      [
+        "daslab_plan",
+        "tracking_detect_carrier"
+      ],
+      [
+        "daslab_update_plan",
+        "tracking_detect_carrier"
+      ],
+      [
+        "sheets_get_values",
+        "tracking_detect_carrier"
+      ],
+      [
+        "sheets_insert_rows",
+        "tracking_detect_carrier"
+      ],
+      [
+        "sheets_get_spreadsheet",
+        "tracking_detect_carrier"
+      ],
+      [
+        "sheets_delete_rows",
+        "tracking_detect_carrier"
+      ],
+      [
+        "sandbox_run",
+        "tracking_detect_carrier"
+      ],
+      [
+        "sheets_get_cells",
+        "tracking_detect_carrier"
+      ],
+      [
+        "sheets_clear",
+        "tracking_detect_carrier"
+      ],
+      [
+        "sheets_append_rows",
+        "tracking_detect_carrier"
+      ],
+      [
+        "gmail_get_profile",
+        "tracking_detect_carrier"
+      ],
+      [
+        "sheets_list",
+        "tracking_detect_carrier"
+      ]
+    ],
+    "conflicting_orders_resolved": [
+      {
+        "chose": "gmail_search -> tracking_get_status"
+      },
+      {
+        "chose": "gmail_get_thread -> tracking_get_status"
+      },
+      {
+        "chose": "sheets_read -> tracking_get_status"
+      },
+      {
+        "chose": "sheets_read -> gmail_get_thread"
+      },
+      {
+        "chose": "sheets_read -> gmail_search"
+      },
+      {
+        "chose": "gmail_search -> gmail_get_thread"
+      }
+    ],
+    "variable_params": {
+      "sheets_read": [
+        "account",
+        "sheet_name"
+      ],
+      "gmail_search": [
+        "query",
+        "account"
+      ],
+      "gmail_get_thread": [
+        "thread_id",
+        "account"
+      ]
+    }
+  },
+  "calls": [
+    {
+      "id": "step_1_sheets_read",
+      "tool": "sheets_read",
+      "input": {
+        "spreadsheet": "spreadsheet_1"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_2_gmail_search",
+      "tool": "gmail_search",
+      "input": {
+        "max_results": "30"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_sheets_read"
+      ]
+    },
+    {
+      "id": "step_3_gmail_get_thread",
+      "tool": "gmail_get_thread",
+      "input": {},
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_sheets_read",
+        "step_2_gmail_search"
+      ]
+    },
+    {
+      "id": "step_4_tracking_get_status",
+      "tool": "tracking_get_status",
+      "input": {},
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_sheets_read",
+        "step_2_gmail_search",
+        "step_3_gmail_get_thread"
+      ]
+    }
+  ]
+}

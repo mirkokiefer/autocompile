@@ -1,0 +1,275 @@
+{
+  "_generated_by": "autocompile codegen",
+  "_source": {
+    "strategy": "asp",
+    "source_runs": 177,
+    "compilation_ratio": 0.45
+  },
+  "title": "Compiled Workflow (177 runs analyzed)",
+  "calls": [
+    {
+      "id": "step_1_gmail_search_0",
+      "tool": "gmail_search",
+      "input": {
+        "maxResults": 20,
+        "accountId": "acct_2"
+      },
+      "_runtime_params": [
+        "query"
+      ],
+      "_note": "Params ['query'] are data-dependent \u2014 bind at runtime from previous step outputs"
+    },
+    {
+      "id": "step_1_gmail_search_1",
+      "tool": "gmail_search",
+      "input": {
+        "maxResults": 20,
+        "accountId": "acct_4"
+      },
+      "_runtime_params": [
+        "query"
+      ],
+      "_note": "Params ['query'] are data-dependent \u2014 bind at runtime from previous step outputs"
+    },
+    {
+      "id": "step_1_gmail_search_2",
+      "tool": "gmail_search",
+      "input": {
+        "maxResults": 20,
+        "accountId": "acct_5"
+      },
+      "_runtime_params": [
+        "query"
+      ],
+      "_note": "Params ['query'] are data-dependent \u2014 bind at runtime from previous step outputs"
+    },
+    {
+      "id": "step_2_sheets_read_0",
+      "tool": "sheets_read",
+      "input": {
+        "accountId": "acct_3",
+        "sheetName": [
+          "Flights",
+          "Hotels"
+        ],
+        "maxRows": 50,
+        "spreadsheetId": "spreadsheet_1"
+      },
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2"
+      ],
+      "_conditional": "Runs when gmail_search produces results (164/171)"
+    },
+    {
+      "id": "step_2_sheets_read_1",
+      "tool": "sheets_read",
+      "input": {
+        "accountId": "acct_3",
+        "sheetName": [
+          "Flights",
+          "Hotels"
+        ],
+        "maxRows": 50,
+        "spreadsheetId": "spreadsheet_2"
+      },
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2"
+      ],
+      "_conditional": "Runs when gmail_search produces results (164/171)"
+    },
+    {
+      "id": "step_3_gmail_list_threads_0",
+      "tool": "gmail_list_threads",
+      "input": {
+        "labelIds": [
+          "INBOX"
+        ],
+        "accountId": "acct_4"
+      },
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read_0",
+        "step_2_sheets_read_1"
+      ],
+      "_conditional": "Runs when gmail_search produces results (91/171)"
+    },
+    {
+      "id": "step_3_gmail_list_threads_1",
+      "tool": "gmail_list_threads",
+      "input": {
+        "labelIds": [
+          "INBOX"
+        ],
+        "accountId": "acct_5"
+      },
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read_0",
+        "step_2_sheets_read_1"
+      ],
+      "_conditional": "Runs when gmail_search produces results (91/171)"
+    },
+    {
+      "id": "step_3_gmail_list_threads_2",
+      "tool": "gmail_list_threads",
+      "input": {
+        "labelIds": [
+          "INBOX"
+        ],
+        "accountId": "acct_2"
+      },
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read_0",
+        "step_2_sheets_read_1"
+      ],
+      "_conditional": "Runs when gmail_search produces results (91/171)"
+    },
+    {
+      "id": "step_4_gmail_get_thread_0",
+      "tool": "gmail_get_thread",
+      "input": {
+        "accountId": "acct_5"
+      },
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read_0",
+        "step_2_sheets_read_1",
+        "step_3_gmail_list_threads_0",
+        "step_3_gmail_list_threads_1",
+        "step_3_gmail_list_threads_2"
+      ],
+      "_runtime_params": [
+        "thread_id"
+      ],
+      "_note": "Params ['thread_id'] are data-dependent \u2014 bind at runtime from previous step outputs",
+      "_conditional": "Runs when sheets_read produces results (56/164)"
+    },
+    {
+      "id": "step_4_gmail_get_thread_1",
+      "tool": "gmail_get_thread",
+      "input": {
+        "accountId": "acct_4"
+      },
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read_0",
+        "step_2_sheets_read_1",
+        "step_3_gmail_list_threads_0",
+        "step_3_gmail_list_threads_1",
+        "step_3_gmail_list_threads_2"
+      ],
+      "_runtime_params": [
+        "thread_id"
+      ],
+      "_note": "Params ['thread_id'] are data-dependent \u2014 bind at runtime from previous step outputs",
+      "_conditional": "Runs when sheets_read produces results (56/164)"
+    },
+    {
+      "id": "step_4_gmail_get_thread_2",
+      "tool": "gmail_get_thread",
+      "input": {
+        "accountId": "acct_2"
+      },
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read_0",
+        "step_2_sheets_read_1",
+        "step_3_gmail_list_threads_0",
+        "step_3_gmail_list_threads_1",
+        "step_3_gmail_list_threads_2"
+      ],
+      "_runtime_params": [
+        "thread_id"
+      ],
+      "_note": "Params ['thread_id'] are data-dependent \u2014 bind at runtime from previous step outputs",
+      "_conditional": "Runs when sheets_read produces results (56/164)"
+    },
+    {
+      "id": "step_5_sheets_update_values_0",
+      "tool": "sheets_update_values",
+      "input": {
+        "accountId": "acct_3",
+        "spreadsheetId": "spreadsheet_2"
+      },
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read_0",
+        "step_2_sheets_read_1",
+        "step_3_gmail_list_threads_0",
+        "step_3_gmail_list_threads_1",
+        "step_3_gmail_list_threads_2",
+        "step_4_gmail_get_thread_0",
+        "step_4_gmail_get_thread_1",
+        "step_4_gmail_get_thread_2"
+      ],
+      "_runtime_params": [
+        "range",
+        "target_sheet",
+        "target_col_start",
+        "target_col_end",
+        "target_row_start",
+        "target_row_end",
+        "target_col_count",
+        "target_row_count",
+        "value_row_count",
+        "value_col_count"
+      ],
+      "_note": "Params ['range', 'target_sheet', 'target_col_start', 'target_col_end', 'target_row_start', 'target_row_end', 'target_col_count', 'target_row_count', 'value_row_count', 'value_col_count'] are data-dependent \u2014 bind at runtime from previous step outputs",
+      "_conditional": "Runs when gmail_get_thread produces results (53/56)"
+    },
+    {
+      "id": "step_5_sheets_update_values_1",
+      "tool": "sheets_update_values",
+      "input": {
+        "accountId": "acct_3",
+        "spreadsheetId": "spreadsheet_1"
+      },
+      "waits_for": [
+        "step_1_gmail_search_0",
+        "step_1_gmail_search_1",
+        "step_1_gmail_search_2",
+        "step_2_sheets_read_0",
+        "step_2_sheets_read_1",
+        "step_3_gmail_list_threads_0",
+        "step_3_gmail_list_threads_1",
+        "step_3_gmail_list_threads_2",
+        "step_4_gmail_get_thread_0",
+        "step_4_gmail_get_thread_1",
+        "step_4_gmail_get_thread_2"
+      ],
+      "_runtime_params": [
+        "range",
+        "target_sheet",
+        "target_col_start",
+        "target_col_end",
+        "target_row_start",
+        "target_row_end",
+        "target_col_count",
+        "target_row_count",
+        "value_row_count",
+        "value_col_count"
+      ],
+      "_note": "Params ['range', 'target_sheet', 'target_col_start', 'target_col_end', 'target_row_start', 'target_row_end', 'target_col_count', 'target_row_count', 'value_row_count', 'value_col_count'] are data-dependent \u2014 bind at runtime from previous step outputs",
+      "_conditional": "Runs when gmail_get_thread produces results (53/56)"
+    }
+  ]
+}
