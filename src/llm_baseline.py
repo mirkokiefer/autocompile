@@ -241,8 +241,20 @@ def query_llm(summary, model, api_key):
     response.raise_for_status()
     data = response.json()
 
-    text = data["choices"][0]["message"]["content"]
+    msg = data["choices"][0]["message"]
+    text = msg.get("content") or ""
     usage = data.get("usage", {})
+
+    # Some models (Qwen 3.5) put thinking in a separate "reasoning" field
+    # and the clean answer in "content"
+    if not text and msg.get("reasoning"):
+        # Content was empty but reasoning exists — check if JSON is in reasoning
+        reasoning = msg["reasoning"]
+        # Try to find JSON in reasoning
+        import re as _re
+        json_match = _re.search(r'\{[\s\S]*\}', reasoning)
+        if json_match:
+            text = json_match.group(0)
 
     # Strip markdown/think tags
     text = text.strip()
