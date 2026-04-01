@@ -1,0 +1,165 @@
+{
+  "_autocompile": {
+    "strategy": "asp",
+    "source_runs": 50,
+    "core_tools": [
+      "grasp",
+      "release"
+    ],
+    "phases": {
+      "0": [
+        "release"
+      ],
+      "1": [
+        "grasp"
+      ]
+    }
+  },
+  "_boundary": {
+    "compiled_steps": 2,
+    "total_observed_tool_types": 9,
+    "core_tool_types": 2,
+    "compilation_ratio": 0.22
+  },
+  "_analysis": {
+    "conditionals": [
+      {
+        "tool": "approach",
+        "depends_on": "grasp",
+        "rate": "23/43"
+      },
+      {
+        "tool": "transport",
+        "depends_on": "grasp",
+        "rate": "23/43"
+      },
+      {
+        "tool": "retract",
+        "depends_on": "grasp",
+        "rate": "7/43"
+      },
+      {
+        "tool": "retract",
+        "depends_on": "release",
+        "rate": "7/48"
+      },
+      {
+        "tool": "hold",
+        "depends_on": "grasp",
+        "rate": "12/43"
+      },
+      {
+        "tool": "hold",
+        "depends_on": "release",
+        "rate": "12/48"
+      },
+      {
+        "tool": "idle",
+        "depends_on": "release",
+        "rate": "7/48"
+      },
+      {
+        "tool": "reach",
+        "depends_on": "move",
+        "rate": "1/4"
+      }
+    ],
+    "fusion_candidates": [],
+    "mutually_exclusive": [
+      [
+        "reach",
+        "transport"
+      ],
+      [
+        "reach",
+        "release"
+      ],
+      [
+        "hold",
+        "retract"
+      ],
+      [
+        "move",
+        "retract"
+      ],
+      [
+        "idle",
+        "retract"
+      ],
+      [
+        "reach",
+        "retract"
+      ],
+      [
+        "hold",
+        "move"
+      ],
+      [
+        "approach",
+        "reach"
+      ],
+      [
+        "grasp",
+        "reach"
+      ],
+      [
+        "hold",
+        "reach"
+      ],
+      [
+        "idle",
+        "reach"
+      ]
+    ],
+    "conflicting_orders_resolved": [
+      {
+        "chose": "release -> grasp"
+      }
+    ],
+    "variable_params": {
+      "grasp": [
+        "start_x",
+        "start_y",
+        "start_z",
+        "end_x",
+        "end_y",
+        "end_z",
+        "duration_sec",
+        "mean_speed",
+        "gripper_end"
+      ],
+      "release": [
+        "end_x",
+        "end_y",
+        "end_z",
+        "duration_sec",
+        "mean_speed",
+        "gripper_start"
+      ]
+    }
+  },
+  "calls": [
+    {
+      "id": "step_1_release",
+      "tool": "release",
+      "input": {
+        "start_x": "2.500",
+        "start_y": "-0.000",
+        "start_z": "0.200",
+        "gripper_end": "7.96"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_2_grasp",
+      "tool": "grasp",
+      "input": {
+        "gripper_start": "7.96"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_release"
+      ]
+    }
+  ]
+}
