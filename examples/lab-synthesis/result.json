@@ -1,0 +1,404 @@
+{
+  "_autocompile": {
+    "strategy": "asp",
+    "source_runs": 25,
+    "core_tools": [
+      "analyze_sample",
+      "charge_reactor",
+      "cool_reaction",
+      "extract_product",
+      "heat_reaction",
+      "monitor_reaction",
+      "prepare_catalyst",
+      "purify_column",
+      "weigh_substrate"
+    ],
+    "phases": {
+      "0": [
+        "prepare_catalyst",
+        "weigh_substrate"
+      ],
+      "1": [
+        "charge_reactor"
+      ],
+      "2": [
+        "heat_reaction"
+      ],
+      "3": [
+        "monitor_reaction"
+      ],
+      "4": [
+        "cool_reaction"
+      ],
+      "5": [
+        "extract_product"
+      ],
+      "6": [
+        "purify_column"
+      ],
+      "7": [
+        "analyze_sample"
+      ]
+    }
+  },
+  "_boundary": {
+    "compiled_steps": 9,
+    "total_observed_tool_types": 10,
+    "core_tool_types": 9,
+    "compilation_ratio": 0.9
+  },
+  "_analysis": {
+    "conditionals": [
+      {
+        "tool": "cool_reaction",
+        "depends_on": "prepare_catalyst",
+        "rate": "24/25"
+      },
+      {
+        "tool": "cool_reaction",
+        "depends_on": "weigh_substrate",
+        "rate": "24/25"
+      },
+      {
+        "tool": "cool_reaction",
+        "depends_on": "charge_reactor",
+        "rate": "24/25"
+      },
+      {
+        "tool": "cool_reaction",
+        "depends_on": "heat_reaction",
+        "rate": "24/25"
+      },
+      {
+        "tool": "cool_reaction",
+        "depends_on": "monitor_reaction",
+        "rate": "24/25"
+      },
+      {
+        "tool": "extract_product",
+        "depends_on": "prepare_catalyst",
+        "rate": "24/25"
+      },
+      {
+        "tool": "extract_product",
+        "depends_on": "weigh_substrate",
+        "rate": "24/25"
+      },
+      {
+        "tool": "extract_product",
+        "depends_on": "charge_reactor",
+        "rate": "24/25"
+      },
+      {
+        "tool": "extract_product",
+        "depends_on": "heat_reaction",
+        "rate": "24/25"
+      },
+      {
+        "tool": "extract_product",
+        "depends_on": "monitor_reaction",
+        "rate": "24/25"
+      },
+      {
+        "tool": "purify_column",
+        "depends_on": "prepare_catalyst",
+        "rate": "13/25"
+      },
+      {
+        "tool": "purify_column",
+        "depends_on": "weigh_substrate",
+        "rate": "13/25"
+      },
+      {
+        "tool": "purify_column",
+        "depends_on": "charge_reactor",
+        "rate": "13/25"
+      },
+      {
+        "tool": "purify_column",
+        "depends_on": "heat_reaction",
+        "rate": "13/25"
+      },
+      {
+        "tool": "purify_column",
+        "depends_on": "monitor_reaction",
+        "rate": "13/25"
+      },
+      {
+        "tool": "purify_column",
+        "depends_on": "cool_reaction",
+        "rate": "13/24"
+      },
+      {
+        "tool": "purify_column",
+        "depends_on": "extract_product",
+        "rate": "13/24"
+      },
+      {
+        "tool": "purify_column",
+        "depends_on": "analyze_sample",
+        "rate": "13/23"
+      },
+      {
+        "tool": "analyze_sample",
+        "depends_on": "prepare_catalyst",
+        "rate": "23/25"
+      },
+      {
+        "tool": "analyze_sample",
+        "depends_on": "weigh_substrate",
+        "rate": "23/25"
+      },
+      {
+        "tool": "analyze_sample",
+        "depends_on": "charge_reactor",
+        "rate": "23/25"
+      },
+      {
+        "tool": "analyze_sample",
+        "depends_on": "heat_reaction",
+        "rate": "23/25"
+      },
+      {
+        "tool": "analyze_sample",
+        "depends_on": "monitor_reaction",
+        "rate": "23/25"
+      },
+      {
+        "tool": "analyze_sample",
+        "depends_on": "cool_reaction",
+        "rate": "23/24"
+      },
+      {
+        "tool": "analyze_sample",
+        "depends_on": "extract_product",
+        "rate": "23/24"
+      },
+      {
+        "tool": "crystallize",
+        "depends_on": "prepare_catalyst",
+        "rate": "6/25"
+      },
+      {
+        "tool": "crystallize",
+        "depends_on": "weigh_substrate",
+        "rate": "6/25"
+      },
+      {
+        "tool": "crystallize",
+        "depends_on": "charge_reactor",
+        "rate": "6/25"
+      },
+      {
+        "tool": "crystallize",
+        "depends_on": "heat_reaction",
+        "rate": "6/25"
+      },
+      {
+        "tool": "crystallize",
+        "depends_on": "monitor_reaction",
+        "rate": "6/25"
+      },
+      {
+        "tool": "crystallize",
+        "depends_on": "cool_reaction",
+        "rate": "6/24"
+      },
+      {
+        "tool": "crystallize",
+        "depends_on": "extract_product",
+        "rate": "6/24"
+      },
+      {
+        "tool": "crystallize",
+        "depends_on": "analyze_sample",
+        "rate": "6/23"
+      }
+    ],
+    "fusion_candidates": [
+      [
+        "prepare_catalyst",
+        "charge_reactor"
+      ],
+      [
+        "weigh_substrate",
+        "charge_reactor"
+      ],
+      [
+        "charge_reactor",
+        "heat_reaction"
+      ],
+      [
+        "heat_reaction",
+        "monitor_reaction"
+      ],
+      [
+        "monitor_reaction",
+        "cool_reaction"
+      ],
+      [
+        "cool_reaction",
+        "extract_product"
+      ],
+      [
+        "purify_column",
+        "analyze_sample"
+      ]
+    ],
+    "mutually_exclusive": [
+      [
+        "crystallize",
+        "purify_column"
+      ]
+    ],
+    "conflicting_orders_resolved": [],
+    "variable_params": {
+      "weigh_substrate": [
+        "substrate_smiles",
+        "amount_mmol"
+      ],
+      "heat_reaction": [
+        "time_min"
+      ]
+    }
+  },
+  "calls": [
+    {
+      "id": "step_1_prepare_catalyst",
+      "tool": "prepare_catalyst",
+      "input": {
+        "catalyst": "Pd_dppf_Cl2",
+        "loading_mol_pct": "3",
+        "solvent": "DMF"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_2_weigh_substrate",
+      "tool": "weigh_substrate",
+      "input": {
+        "coupling_partner": "phenylboronic_acid",
+        "coupling_mmol": "1.50"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_3_charge_reactor",
+      "tool": "charge_reactor",
+      "input": {
+        "solvent": "DMF_water",
+        "solvent_volume_mL": "5.0",
+        "base": "K2CO3",
+        "base_equiv": "2.0",
+        "atmosphere": "N2"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_prepare_catalyst",
+        "step_2_weigh_substrate"
+      ]
+    },
+    {
+      "id": "step_4_heat_reaction",
+      "tool": "heat_reaction",
+      "input": {
+        "temperature_C": "80",
+        "stir_rpm": "500"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_prepare_catalyst",
+        "step_2_weigh_substrate",
+        "step_3_charge_reactor"
+      ]
+    },
+    {
+      "id": "step_5_monitor_reaction",
+      "tool": "monitor_reaction",
+      "input": {
+        "method": "TLC",
+        "sample_volume_uL": "50"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_prepare_catalyst",
+        "step_2_weigh_substrate",
+        "step_3_charge_reactor",
+        "step_4_heat_reaction"
+      ]
+    },
+    {
+      "id": "step_6_cool_reaction",
+      "tool": "cool_reaction",
+      "input": {
+        "target_temp_C": "25",
+        "method": "air_cool"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_prepare_catalyst",
+        "step_2_weigh_substrate",
+        "step_3_charge_reactor",
+        "step_4_heat_reaction",
+        "step_5_monitor_reaction"
+      ]
+    },
+    {
+      "id": "step_7_extract_product",
+      "tool": "extract_product",
+      "input": {
+        "extraction_solvent": "ethyl_acetate",
+        "washes": "3",
+        "dry_agent": "Na2SO4"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_prepare_catalyst",
+        "step_2_weigh_substrate",
+        "step_3_charge_reactor",
+        "step_4_heat_reaction",
+        "step_5_monitor_reaction",
+        "step_6_cool_reaction"
+      ]
+    },
+    {
+      "id": "step_8_purify_column",
+      "tool": "purify_column",
+      "input": {
+        "stationary_phase": "silica_gel",
+        "eluent": "hexane_ethyl_acetate",
+        "gradient": "10_to_40_pct"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_prepare_catalyst",
+        "step_2_weigh_substrate",
+        "step_3_charge_reactor",
+        "step_4_heat_reaction",
+        "step_5_monitor_reaction",
+        "step_6_cool_reaction",
+        "step_7_extract_product"
+      ]
+    },
+    {
+      "id": "step_9_analyze_sample",
+      "tool": "analyze_sample",
+      "input": {
+        "method": "HPLC",
+        "column": "C18",
+        "detector": "UV_254nm"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_prepare_catalyst",
+        "step_2_weigh_substrate",
+        "step_3_charge_reactor",
+        "step_4_heat_reaction",
+        "step_5_monitor_reaction",
+        "step_6_cool_reaction",
+        "step_7_extract_product",
+        "step_8_purify_column"
+      ]
+    }
+  ]
+}

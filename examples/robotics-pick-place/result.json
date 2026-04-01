@@ -1,0 +1,319 @@
+{
+  "_autocompile": {
+    "strategy": "asp",
+    "source_runs": 20,
+    "core_tools": [
+      "close_gripper",
+      "move_arm",
+      "move_to_target",
+      "open_gripper",
+      "retract_arm",
+      "sense_object",
+      "sense_target"
+    ],
+    "phases": {
+      "0": [
+        "sense_object",
+        "sense_target"
+      ],
+      "1": [
+        "move_arm"
+      ],
+      "2": [
+        "close_gripper"
+      ],
+      "3": [
+        "move_to_target"
+      ],
+      "4": [
+        "open_gripper"
+      ],
+      "5": [
+        "retract_arm"
+      ]
+    }
+  },
+  "_boundary": {
+    "compiled_steps": 7,
+    "total_observed_tool_types": 9,
+    "core_tool_types": 7,
+    "compilation_ratio": 0.78
+  },
+  "_analysis": {
+    "conditionals": [
+      {
+        "tool": "move_arm",
+        "depends_on": "sense_object",
+        "rate": "19/20"
+      },
+      {
+        "tool": "move_arm",
+        "depends_on": "sense_target",
+        "rate": "19/20"
+      },
+      {
+        "tool": "close_gripper",
+        "depends_on": "sense_object",
+        "rate": "19/20"
+      },
+      {
+        "tool": "close_gripper",
+        "depends_on": "sense_target",
+        "rate": "19/20"
+      },
+      {
+        "tool": "move_to_target",
+        "depends_on": "sense_object",
+        "rate": "18/20"
+      },
+      {
+        "tool": "move_to_target",
+        "depends_on": "sense_target",
+        "rate": "18/20"
+      },
+      {
+        "tool": "move_to_target",
+        "depends_on": "move_arm",
+        "rate": "18/19"
+      },
+      {
+        "tool": "move_to_target",
+        "depends_on": "close_gripper",
+        "rate": "18/19"
+      },
+      {
+        "tool": "open_gripper",
+        "depends_on": "sense_object",
+        "rate": "18/20"
+      },
+      {
+        "tool": "open_gripper",
+        "depends_on": "sense_target",
+        "rate": "18/20"
+      },
+      {
+        "tool": "open_gripper",
+        "depends_on": "move_arm",
+        "rate": "18/19"
+      },
+      {
+        "tool": "open_gripper",
+        "depends_on": "close_gripper",
+        "rate": "18/19"
+      },
+      {
+        "tool": "retract_arm",
+        "depends_on": "sense_object",
+        "rate": "18/20"
+      },
+      {
+        "tool": "retract_arm",
+        "depends_on": "sense_target",
+        "rate": "18/20"
+      },
+      {
+        "tool": "retract_arm",
+        "depends_on": "move_arm",
+        "rate": "18/19"
+      },
+      {
+        "tool": "retract_arm",
+        "depends_on": "close_gripper",
+        "rate": "18/19"
+      },
+      {
+        "tool": "check_grasp",
+        "depends_on": "sense_object",
+        "rate": "8/20"
+      },
+      {
+        "tool": "check_grasp",
+        "depends_on": "sense_target",
+        "rate": "8/20"
+      },
+      {
+        "tool": "check_grasp",
+        "depends_on": "move_arm",
+        "rate": "8/19"
+      },
+      {
+        "tool": "check_grasp",
+        "depends_on": "close_gripper",
+        "rate": "8/19"
+      },
+      {
+        "tool": "adjust_grip",
+        "depends_on": "sense_object",
+        "rate": "2/20"
+      },
+      {
+        "tool": "adjust_grip",
+        "depends_on": "sense_target",
+        "rate": "2/20"
+      },
+      {
+        "tool": "adjust_grip",
+        "depends_on": "move_arm",
+        "rate": "2/19"
+      },
+      {
+        "tool": "adjust_grip",
+        "depends_on": "close_gripper",
+        "rate": "2/19"
+      },
+      {
+        "tool": "adjust_grip",
+        "depends_on": "move_to_target",
+        "rate": "2/18"
+      },
+      {
+        "tool": "adjust_grip",
+        "depends_on": "open_gripper",
+        "rate": "2/18"
+      },
+      {
+        "tool": "adjust_grip",
+        "depends_on": "retract_arm",
+        "rate": "2/18"
+      },
+      {
+        "tool": "adjust_grip",
+        "depends_on": "check_grasp",
+        "rate": "2/8"
+      }
+    ],
+    "fusion_candidates": [
+      [
+        "sense_object",
+        "move_arm"
+      ],
+      [
+        "sense_target",
+        "move_arm"
+      ],
+      [
+        "move_arm",
+        "close_gripper"
+      ],
+      [
+        "move_to_target",
+        "open_gripper"
+      ],
+      [
+        "open_gripper",
+        "retract_arm"
+      ]
+    ],
+    "mutually_exclusive": [],
+    "conflicting_orders_resolved": [],
+    "variable_params": {
+      "sense_target": [
+        "target_zone"
+      ],
+      "move_arm": [
+        "target_x",
+        "target_y"
+      ],
+      "close_gripper": [
+        "grip_width"
+      ],
+      "move_to_target": [
+        "target_x",
+        "target_y"
+      ]
+    }
+  },
+  "calls": [
+    {
+      "id": "step_1_sense_object",
+      "tool": "sense_object",
+      "input": {
+        "sensor_type": "rgbd",
+        "workspace_id": "ws_main"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_2_sense_target",
+      "tool": "sense_target",
+      "input": {
+        "sensor_type": "rgbd"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_3_move_arm",
+      "tool": "move_arm",
+      "input": {
+        "target_z": "0.15",
+        "approach_height": "0.15",
+        "speed": "0.5"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_sense_object",
+        "step_2_sense_target"
+      ]
+    },
+    {
+      "id": "step_4_close_gripper",
+      "tool": "close_gripper",
+      "input": {
+        "gripper_force": "0.8"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_sense_object",
+        "step_2_sense_target",
+        "step_3_move_arm"
+      ]
+    },
+    {
+      "id": "step_5_move_to_target",
+      "tool": "move_to_target",
+      "input": {
+        "carry_height": "0.25",
+        "speed": "0.3"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_sense_object",
+        "step_2_sense_target",
+        "step_3_move_arm",
+        "step_4_close_gripper"
+      ]
+    },
+    {
+      "id": "step_6_open_gripper",
+      "tool": "open_gripper",
+      "input": {
+        "release_speed": "0.2"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_sense_object",
+        "step_2_sense_target",
+        "step_3_move_arm",
+        "step_4_close_gripper",
+        "step_5_move_to_target"
+      ]
+    },
+    {
+      "id": "step_7_retract_arm",
+      "tool": "retract_arm",
+      "input": {
+        "retract_height": "0.35",
+        "speed": "0.4"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_sense_object",
+        "step_2_sense_target",
+        "step_3_move_arm",
+        "step_4_close_gripper",
+        "step_5_move_to_target",
+        "step_6_open_gripper"
+      ]
+    }
+  ]
+}

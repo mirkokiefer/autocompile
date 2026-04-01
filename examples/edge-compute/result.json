@@ -1,0 +1,248 @@
+{
+  "_autocompile": {
+    "strategy": "asp",
+    "source_runs": 25,
+    "core_tools": [
+      "aggregate_results",
+      "preprocess_data",
+      "read_sensor",
+      "run_inference",
+      "store_results"
+    ],
+    "phases": {
+      "0": [
+        "read_sensor"
+      ],
+      "1": [
+        "preprocess_data"
+      ],
+      "2": [
+        "run_inference"
+      ],
+      "3": [
+        "aggregate_results"
+      ],
+      "4": [
+        "store_results"
+      ]
+    }
+  },
+  "_boundary": {
+    "compiled_steps": 5,
+    "total_observed_tool_types": 7,
+    "core_tool_types": 5,
+    "compilation_ratio": 0.71
+  },
+  "_analysis": {
+    "conditionals": [
+      {
+        "tool": "preprocess_data",
+        "depends_on": "read_sensor",
+        "rate": "24/25"
+      },
+      {
+        "tool": "run_inference",
+        "depends_on": "read_sensor",
+        "rate": "24/25"
+      },
+      {
+        "tool": "aggregate_results",
+        "depends_on": "read_sensor",
+        "rate": "23/25"
+      },
+      {
+        "tool": "aggregate_results",
+        "depends_on": "preprocess_data",
+        "rate": "23/24"
+      },
+      {
+        "tool": "aggregate_results",
+        "depends_on": "run_inference",
+        "rate": "23/24"
+      },
+      {
+        "tool": "store_results",
+        "depends_on": "read_sensor",
+        "rate": "23/25"
+      },
+      {
+        "tool": "store_results",
+        "depends_on": "preprocess_data",
+        "rate": "23/24"
+      },
+      {
+        "tool": "store_results",
+        "depends_on": "run_inference",
+        "rate": "23/24"
+      },
+      {
+        "tool": "send_alert",
+        "depends_on": "read_sensor",
+        "rate": "9/25"
+      },
+      {
+        "tool": "send_alert",
+        "depends_on": "preprocess_data",
+        "rate": "9/24"
+      },
+      {
+        "tool": "send_alert",
+        "depends_on": "run_inference",
+        "rate": "9/24"
+      },
+      {
+        "tool": "send_alert",
+        "depends_on": "aggregate_results",
+        "rate": "9/23"
+      },
+      {
+        "tool": "send_alert",
+        "depends_on": "store_results",
+        "rate": "9/23"
+      },
+      {
+        "tool": "recalibrate_sensor",
+        "depends_on": "read_sensor",
+        "rate": "4/25"
+      },
+      {
+        "tool": "recalibrate_sensor",
+        "depends_on": "preprocess_data",
+        "rate": "4/24"
+      },
+      {
+        "tool": "recalibrate_sensor",
+        "depends_on": "run_inference",
+        "rate": "4/24"
+      },
+      {
+        "tool": "recalibrate_sensor",
+        "depends_on": "aggregate_results",
+        "rate": "4/23"
+      },
+      {
+        "tool": "recalibrate_sensor",
+        "depends_on": "store_results",
+        "rate": "4/23"
+      }
+    ],
+    "fusion_candidates": [
+      [
+        "read_sensor",
+        "preprocess_data"
+      ],
+      [
+        "preprocess_data",
+        "run_inference"
+      ],
+      [
+        "run_inference",
+        "aggregate_results"
+      ],
+      [
+        "aggregate_results",
+        "store_results"
+      ]
+    ],
+    "mutually_exclusive": [
+      [
+        "recalibrate_sensor",
+        "send_alert"
+      ]
+    ],
+    "conflicting_orders_resolved": [],
+    "variable_params": {
+      "preprocess_data": [
+        "batch_id"
+      ],
+      "run_inference": [
+        "threshold",
+        "batch_id"
+      ],
+      "aggregate_results": [
+        "batch_id"
+      ],
+      "store_results": [
+        "batch_id"
+      ]
+    }
+  },
+  "calls": [
+    {
+      "id": "step_1_read_sensor",
+      "tool": "read_sensor",
+      "input": {
+        "device": [
+          "esp32_1",
+          "esp32_2",
+          "esp32_3"
+        ],
+        "sensor_type": [
+          "temperature",
+          "vibration",
+          "pressure"
+        ],
+        "sample_rate_hz": "100",
+        "duration_sec": "10"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_2_preprocess_data",
+      "tool": "preprocess_data",
+      "input": {
+        "device": "pi_1",
+        "normalize": "true",
+        "window_size": "256"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_read_sensor"
+      ]
+    },
+    {
+      "id": "step_3_run_inference",
+      "tool": "run_inference",
+      "input": {
+        "device": "jetson_1",
+        "model": "anomaly_detector_v3",
+        "precision": "fp16"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_read_sensor",
+        "step_2_preprocess_data"
+      ]
+    },
+    {
+      "id": "step_4_aggregate_results",
+      "tool": "aggregate_results",
+      "input": {
+        "device": "mac_studio_1",
+        "output_format": "json"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_read_sensor",
+        "step_2_preprocess_data",
+        "step_3_run_inference"
+      ]
+    },
+    {
+      "id": "step_5_store_results",
+      "tool": "store_results",
+      "input": {
+        "device": "mac_studio_1",
+        "storage": "timescaledb",
+        "retention_days": "90"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_read_sensor",
+        "step_2_preprocess_data",
+        "step_3_run_inference",
+        "step_4_aggregate_results"
+      ]
+    }
+  ]
+}
