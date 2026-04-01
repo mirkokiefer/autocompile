@@ -105,16 +105,40 @@ def vlm_generate_usd(scene_description):
 
 {scene_description}
 
-Requirements:
-- Use simple primitive shapes (Cylinder for bowls/cups, Cube for cabinets/counters, Sphere for round objects)
-- Include a ground plane
-- Include a camera matching the described angle
-- Include a simple directional light
-- Use approximate colors via displayColor
-- The scene should be roughly 1 meter across
-- Camera should produce a 224x224 image
+CRITICAL CONVENTIONS (Blender USD import):
+- Coordinate system: Z-up, Y-forward. A table 0.9m tall has translate = (0, 0, 0.45) with scale on Z.
+- Cube primitive is 2m per side by default. scale=(0.4, 0.3, 0.01) gives a 0.8m x 0.6m x 0.02m slab.
+- Cylinder default is 2m tall, 1m radius. scale=(0.08, 0.08, 0.03) gives radius=0.08m, height=0.06m.
+- Use xformOp:translate for position, xformOp:scale for size. Always include xformOpOrder.
+- Colors: use color3f[] primvars:displayColor = [(R, G, B)] with values 0-1.
+- DO NOT include Camera or Light definitions — those are added by the renderer.
+- The full scene should fit in a 1m x 1m x 1.2m bounding box, centered near origin.
 
-Output ONLY the .usda file content, nothing else. No markdown fences. Start with #usda 1.0"""
+WORKING EXAMPLE — a table with a bowl on it:
+```
+#usda 1.0
+def Xform "World"
+{{
+    def Cube "Tabletop"
+    {{
+        double3 xformOp:translate = (0, 0, 0.45)
+        double3 xformOp:scale = (0.4, 0.3, 0.01)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        color3f[] primvars:displayColor = [(0.7, 0.5, 0.3)]
+    }}
+    def Cylinder "Bowl"
+    {{
+        double3 xformOp:translate = (-0.1, 0, 0.48)
+        double3 xformOp:scale = (0.06, 0.06, 0.02)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        color3f[] primvars:displayColor = [(0.9, 0.9, 0.95)]
+    }}
+}}
+```
+
+Now generate the FULL scene matching the description above. Use distinct colors for each object (not all white/gray). Make the wall dark teal (0.1, 0.3, 0.3), countertop warm wood (0.7, 0.55, 0.35), cabinet white (0.92, 0.92, 0.9), sink dark (0.25, 0.25, 0.25), bowl light blue (0.7, 0.85, 0.85).
+
+Output ONLY the .usda content. No markdown. Start with #usda 1.0"""
     }], max_tokens=3000)
 
 
@@ -196,39 +220,67 @@ except Exception as e:
         print(f"Both USD imports failed: {e2}")
         sys.exit(1)
 
-# Convert displayColor vertex colors to actual materials
+# Fix USD cm-to-m scale: if there is a World Xform with scale=0.01, undo it
+for obj in bpy.data.objects:
+    if obj.type == 'EMPTY' and obj.name in ('World', 'Root'):
+        if abs(obj.scale[0] - 0.01) < 0.001:
+            print(f"  Fixing {obj.name} scale from {list(obj.scale)} to (1,1,1)")
+            obj.scale = (1, 1, 1)
+            bpy.context.view_layer.update()
+
+# Convert displayColor to actual materials
+# Try multiple methods since USD import handles colors differently per version
 for obj in bpy.data.objects:
     if obj.type != 'MESH':
         continue
 
-    # Check for displayColor attribute
     mesh = obj.data
-    color_attr = None
+    r, g, b = 0.5, 0.5, 0.5
+    found_color = False
+
+    # Method 1: color_attributes (vertex colors)
     for attr in mesh.color_attributes:
-        if 'display' in attr.name.lower() or 'color' in attr.name.lower():
-            color_attr = attr
+        if len(attr.data) > 0:
+            c = attr.data[0].color
+            r, g, b = c[0], c[1], c[2]
+            found_color = True
             break
 
-    if color_attr and len(color_attr.data) > 0:
-        # Get the first color value
-        c = color_attr.data[0].color
-        r, g, b = c[0], c[1], c[2]
-    else:
-        # Default gray
-        r, g, b = 0.5, 0.5, 0.5
+    # Method 2: check existing materials for displayColor
+    if not found_color and obj.data.materials:
+        for mat in obj.data.materials:
+            if mat and mat.use_nodes:
+                for node in mat.node_tree.nodes:
+                    if node.type == 'BSDF_PRINCIPLED':
+                        bc = node.inputs["Base Color"].default_value
+                        if bc[0] != 0.8 or bc[1] != 0.8:  # not default gray
+                            r, g, b = bc[0], bc[1], bc[2]
+                            found_color = True
+                            break
 
-    # Create material
+    # Method 3: check custom properties
+    if not found_color:
+        for key in obj.keys():
+            if 'color' in key.lower() or 'display' in key.lower():
+                val = obj[key]
+                if hasattr(val, '__len__') and len(val) >= 3:
+                    r, g, b = val[0], val[1], val[2]
+                    found_color = True
+                    break
+
+    # Create/replace material with the color
     mat_name = f"mat_{obj.name}"
     mat = bpy.data.materials.new(name=mat_name)
     mat.use_nodes = True
     bsdf = mat.node_tree.nodes.get("Principled BSDF")
     if bsdf:
         bsdf.inputs["Base Color"].default_value = (r, g, b, 1)
-        bsdf.inputs["Roughness"].default_value = 0.7
+        bsdf.inputs["Roughness"].default_value = 0.6
+        bsdf.inputs["Specular IOR Level"].default_value = 0.3
 
     obj.data.materials.clear()
     obj.data.materials.append(mat)
-    print(f"  Material for {obj.name}: ({r:.2f}, {g:.2f}, {b:.2f})")
+    print(f"  Material for {obj.name}: ({r:.2f}, {g:.2f}, {b:.2f}) found={found_color}")
 
 # Auto-frame: compute scene bounds and point camera at center
 from mathutils import Vector
