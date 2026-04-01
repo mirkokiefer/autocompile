@@ -220,13 +220,7 @@ except Exception as e:
         print(f"Both USD imports failed: {e2}")
         sys.exit(1)
 
-# Fix USD cm-to-m scale: if there is a World Xform with scale=0.01, undo it
-for obj in bpy.data.objects:
-    if obj.type == 'EMPTY' and obj.name in ('World', 'Root'):
-        if abs(obj.scale[0] - 0.01) < 0.001:
-            print(f"  Fixing {obj.name} scale from {list(obj.scale)} to (1,1,1)")
-            obj.scale = (1, 1, 1)
-            bpy.context.view_layer.update()
+# Note: metersPerUnit=1.0 is set in USD preprocessing, so no scale fix needed
 
 # Convert displayColor to actual materials
 # Try multiple methods since USD import handles colors differently per version
@@ -303,16 +297,23 @@ if all_coords:
     zs = [c.z for c in all_coords]
     center = Vector(((min(xs)+max(xs))/2, (min(ys)+max(ys))/2, (min(zs)+max(zs))/2))
     size = max(max(xs)-min(xs), max(ys)-min(ys), max(zs)-min(zs))
-    cam_dist = size * 1.8
-    cam_loc = (center.x, center.y - cam_dist * 0.5, center.z + cam_dist * 0.7)
+
+    # Find the "front" of the scene: the max Y face (where cabinet doors/details are)
+    front_y = max(ys)
+    cam_dist = size * 1.5
+    # Camera in front (max Y + distance), slightly above center, slightly to the right
+    cam_loc = (center.x + size * 0.1, front_y + cam_dist * 0.7, center.z + cam_dist * 0.3)
+    # Look at the center of the scene, biased slightly upward
+    look_at = Vector((center.x, center.y, center.z + size * 0.1))
 else:
-    center = Vector((0, 0, 0.5))
-    cam_loc = (0, -1, 1.5)
+    cam_loc = (0, 1.5, 0.7)
+    look_at = Vector((0, 0, 0.3))
 
 bpy.ops.object.camera_add(location=cam_loc)
 cam = bpy.context.object
-direction = center - Vector(cam_loc)
+direction = look_at - Vector(cam_loc)
 cam.rotation_euler = direction.to_track_quat('-Z', 'Y').to_euler()
+cam.data.lens = 32
 bpy.context.scene.camera = cam
 
 # Ensure there is a light — add one if USD light was not imported
@@ -432,12 +433,47 @@ def main():
         usd_content = "\n".join(clean_lines)
 
     if not usd_content.startswith("#usda"):
-        # Find the start
         idx = usd_content.find("#usda")
         if idx >= 0:
             usd_content = usd_content[idx:]
         else:
             print("  WARNING: LLM didn't produce valid USD. Attempting anyway.")
+
+    # Ensure metersPerUnit and upAxis are set (prevents Blender cm-to-m scaling)
+    if "metersPerUnit" not in usd_content:
+        usd_content = usd_content.replace(
+            "#usda 1.0",
+            '#usda 1.0\n(\n    metersPerUnit = 1.0\n    upAxis = "Z"\n)',
+            1
+        )
+
+    # Strip the World Xform wrapper if present (causes nested scale issues)
+    if 'def Xform "World"' in usd_content:
+        lines = usd_content.split("\n")
+        out = []
+        skip_world_open = False
+        depth = 0
+        for line in lines:
+            s = line.strip()
+            if s == 'def Xform "World"':
+                skip_world_open = True
+                continue
+            if skip_world_open and s == "{":
+                skip_world_open = False
+                depth = 1
+                continue
+            if depth > 0:
+                if "{" in s:
+                    depth += s.count("{")
+                if "}" in s:
+                    depth -= s.count("}")
+                if depth <= 0:
+                    continue
+                # Remove one level of indentation
+                out.append(line[4:] if line.startswith("    ") else line)
+            else:
+                out.append(line)
+        usd_content = "\n".join(out)
 
     usd_path = output_dir / "scene_v0.usda"
     usd_path.write_text(usd_content)
