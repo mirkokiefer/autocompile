@@ -1,0 +1,93 @@
+{
+  "_autocompile": {
+    "strategy": "asp",
+    "source_runs": 30,
+    "core_tools": [
+      "adjust_position",
+      "move_to_position",
+      "open_gripper"
+    ],
+    "phases": {
+      "0": [
+        "open_gripper"
+      ],
+      "1": [
+        "move_to_position"
+      ],
+      "2": [
+        "adjust_position"
+      ]
+    }
+  },
+  "_boundary": {
+    "compiled_steps": 3,
+    "total_observed_tool_types": 3,
+    "core_tool_types": 3,
+    "compilation_ratio": 1.0
+  },
+  "_analysis": {
+    "conditionals": [],
+    "fusion_candidates": [
+      [
+        "open_gripper",
+        "move_to_position"
+      ],
+      [
+        "move_to_position",
+        "adjust_position"
+      ]
+    ],
+    "mutually_exclusive": [],
+    "conflicting_orders_resolved": [],
+    "variable_params": {
+      "open_gripper": [
+        "pos_distance",
+        "mean_speed"
+      ],
+      "move_to_position": [
+        "pos_distance",
+        "mean_speed"
+      ],
+      "adjust_position": [
+        "pos_distance",
+        "mean_speed"
+      ]
+    }
+  },
+  "calls": [
+    {
+      "id": "step_1_open_gripper",
+      "tool": "open_gripper",
+      "input": {
+        "delta_gripper": "1.6",
+        "efficiency": "1.0"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_2_move_to_position",
+      "tool": "move_to_position",
+      "input": {
+        "delta_gripper": "0.4",
+        "efficiency": "1.0"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_open_gripper"
+      ]
+    },
+    {
+      "id": "step_3_adjust_position",
+      "tool": "adjust_position",
+      "input": {
+        "delta_gripper": "0.0",
+        "efficiency": "0.9"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_open_gripper",
+        "step_2_move_to_position"
+      ]
+    }
+  ]
+}

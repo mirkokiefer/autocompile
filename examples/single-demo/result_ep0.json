@@ -1,0 +1,143 @@
+{
+  "_autocompile": {
+    "strategy": "asp",
+    "source_runs": 50,
+    "core_tools": [
+      "adjust_position",
+      "close_gripper",
+      "move_to_position",
+      "open_gripper"
+    ],
+    "phases": {
+      "0": [
+        "close_gripper"
+      ],
+      "1": [
+        "move_to_position"
+      ],
+      "2": [
+        "open_gripper"
+      ],
+      "3": [
+        "adjust_position"
+      ]
+    }
+  },
+  "_boundary": {
+    "compiled_steps": 4,
+    "total_observed_tool_types": 4,
+    "core_tool_types": 4,
+    "compilation_ratio": 1.0
+  },
+  "_analysis": {
+    "conditionals": [],
+    "fusion_candidates": [],
+    "mutually_exclusive": [],
+    "conflicting_orders_resolved": [
+      {
+        "chose": "close_gripper -> move_to_position"
+      },
+      {
+        "chose": "close_gripper -> open_gripper"
+      },
+      {
+        "chose": "move_to_position -> open_gripper"
+      },
+      {
+        "chose": "move_to_position -> adjust_position"
+      },
+      {
+        "chose": "close_gripper -> adjust_position"
+      },
+      {
+        "chose": "open_gripper -> adjust_position"
+      }
+    ],
+    "variable_params": {
+      "move_to_position": [
+        "pos_distance",
+        "mean_speed"
+      ],
+      "close_gripper": [
+        "pos_distance",
+        "mean_speed"
+      ],
+      "open_gripper": [
+        "pos_distance",
+        "mean_speed"
+      ],
+      "adjust_position": [
+        "pos_distance",
+        "mean_speed"
+      ]
+    }
+  },
+  "calls": [
+    {
+      "id": "step_1_close_gripper",
+      "tool": "close_gripper",
+      "input": {
+        "delta_gripper": [
+          "-2.0",
+          "-1.8"
+        ],
+        "efficiency": [
+          "0.9",
+          "1.0"
+        ]
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_2_move_to_position",
+      "tool": "move_to_position",
+      "input": {
+        "delta_gripper": [
+          "0.0",
+          "1.3"
+        ],
+        "efficiency": [
+          "1.0",
+          "0.7"
+        ]
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_close_gripper"
+      ]
+    },
+    {
+      "id": "step_3_open_gripper",
+      "tool": "open_gripper",
+      "input": {
+        "delta_gripper": "1.6",
+        "efficiency": "0.8"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_close_gripper",
+        "step_2_move_to_position"
+      ]
+    },
+    {
+      "id": "step_4_adjust_position",
+      "tool": "adjust_position",
+      "input": {
+        "delta_gripper": [
+          "0.8",
+          "0.0"
+        ],
+        "efficiency": [
+          "0.6",
+          "0.3"
+        ]
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_close_gripper",
+        "step_2_move_to_position",
+        "step_3_open_gripper"
+      ]
+    }
+  ]
+}
