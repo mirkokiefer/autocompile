@@ -226,7 +226,10 @@ def run_asp_strategy(traces_path, rules_path, verbose=False):
 def synthesize(results):
     """Turn mined patterns into a compiled workflow DAG."""
     core_tools = sorted(results["core_tools"])
-    orderings = results["consistent_order"] + results.get("chosen_order", [])
+    # Only consistent orderings are hard phase constraints.
+    # Conflicting orderings (resolved by chosen_order) mean the tools are
+    # concurrent in practice — they go in the SAME phase, not sequential.
+    orderings = results["consistent_order"]
     stable_params = results["stable_params"]
 
     # Build phases from ordering

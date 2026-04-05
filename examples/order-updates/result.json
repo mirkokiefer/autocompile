@@ -3,31 +3,21 @@
     "strategy": "asp",
     "source_runs": 118,
     "core_tools": [
-      "gmail_get_thread",
       "gmail_search",
-      "sheets_read",
-      "tracking_get_status"
+      "sheets_read"
     ],
     "phases": {
       "0": [
+        "gmail_search",
         "sheets_read"
-      ],
-      "1": [
-        "gmail_search"
-      ],
-      "2": [
-        "gmail_get_thread"
-      ],
-      "3": [
-        "tracking_get_status"
       ]
     }
   },
   "_boundary": {
-    "compiled_steps": 4,
+    "compiled_steps": 2,
     "total_observed_tool_types": 22,
-    "core_tool_types": 4,
-    "compilation_ratio": 0.18
+    "core_tool_types": 2,
+    "compilation_ratio": 0.09
   },
   "_analysis": {
     "conditionals": [
@@ -542,22 +532,7 @@
     ],
     "conflicting_orders_resolved": [
       {
-        "chose": "gmail_search -> tracking_get_status"
-      },
-      {
-        "chose": "gmail_get_thread -> tracking_get_status"
-      },
-      {
-        "chose": "sheets_read -> tracking_get_status"
-      },
-      {
-        "chose": "sheets_read -> gmail_get_thread"
-      },
-      {
         "chose": "sheets_read -> gmail_search"
-      },
-      {
-        "chose": "gmail_search -> gmail_get_thread"
       }
     ],
     "variable_params": {
@@ -568,53 +543,25 @@
       "gmail_search": [
         "query",
         "account"
-      ],
-      "gmail_get_thread": [
-        "thread_id",
-        "account"
       ]
     }
   },
   "calls": [
     {
-      "id": "step_1_sheets_read",
+      "id": "step_1_gmail_search",
+      "tool": "gmail_search",
+      "input": {
+        "max_results": "30"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_2_sheets_read",
       "tool": "sheets_read",
       "input": {
         "spreadsheet": "spreadsheet_1"
       },
       "compilation": "compiled"
-    },
-    {
-      "id": "step_2_gmail_search",
-      "tool": "gmail_search",
-      "input": {
-        "max_results": "30"
-      },
-      "compilation": "compiled",
-      "waits_for": [
-        "step_1_sheets_read"
-      ]
-    },
-    {
-      "id": "step_3_gmail_get_thread",
-      "tool": "gmail_get_thread",
-      "input": {},
-      "compilation": "compiled",
-      "waits_for": [
-        "step_1_sheets_read",
-        "step_2_gmail_search"
-      ]
-    },
-    {
-      "id": "step_4_tracking_get_status",
-      "tool": "tracking_get_status",
-      "input": {},
-      "compilation": "compiled",
-      "waits_for": [
-        "step_1_sheets_read",
-        "step_2_gmail_search",
-        "step_3_gmail_get_thread"
-      ]
     }
   ]
 }

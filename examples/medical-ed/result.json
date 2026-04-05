@@ -1,0 +1,473 @@
+{
+  "_autocompile": {
+    "strategy": "asp",
+    "source_runs": 1050,
+    "core_tools": [
+      "admission_nc",
+      "crp",
+      "er_registration",
+      "er_sepsis_triage",
+      "er_triage",
+      "iv_antibiotics",
+      "iv_liquid",
+      "lacticacid",
+      "leucocytes",
+      "release_a"
+    ],
+    "phases": {
+      "0": [
+        "er_registration"
+      ],
+      "1": [
+        "er_sepsis_triage",
+        "er_triage",
+        "iv_liquid"
+      ],
+      "2": [
+        "admission_nc",
+        "crp",
+        "iv_antibiotics",
+        "lacticacid",
+        "leucocytes"
+      ],
+      "3": [
+        "release_a"
+      ]
+    }
+  },
+  "_boundary": {
+    "compiled_steps": 10,
+    "total_observed_tool_types": 16,
+    "core_tool_types": 10,
+    "compilation_ratio": 0.62
+  },
+  "_analysis": {
+    "conditionals": [
+      {
+        "tool": "leucocytes",
+        "depends_on": "er_registration",
+        "rate": "1012/1050"
+      },
+      {
+        "tool": "leucocytes",
+        "depends_on": "er_triage",
+        "rate": "1012/1050"
+      },
+      {
+        "tool": "crp",
+        "depends_on": "er_registration",
+        "rate": "1007/1050"
+      },
+      {
+        "tool": "crp",
+        "depends_on": "er_triage",
+        "rate": "1007/1050"
+      },
+      {
+        "tool": "lacticacid",
+        "depends_on": "er_registration",
+        "rate": "860/1050"
+      },
+      {
+        "tool": "lacticacid",
+        "depends_on": "leucocytes",
+        "rate": "860/1012"
+      },
+      {
+        "tool": "lacticacid",
+        "depends_on": "crp",
+        "rate": "860/1007"
+      },
+      {
+        "tool": "lacticacid",
+        "depends_on": "er_triage",
+        "rate": "860/1050"
+      },
+      {
+        "tool": "er_sepsis_triage",
+        "depends_on": "er_registration",
+        "rate": "1049/1050"
+      },
+      {
+        "tool": "er_sepsis_triage",
+        "depends_on": "er_triage",
+        "rate": "1049/1050"
+      },
+      {
+        "tool": "iv_liquid",
+        "depends_on": "er_registration",
+        "rate": "753/1050"
+      },
+      {
+        "tool": "iv_liquid",
+        "depends_on": "leucocytes",
+        "rate": "753/1012"
+      },
+      {
+        "tool": "iv_liquid",
+        "depends_on": "crp",
+        "rate": "753/1007"
+      },
+      {
+        "tool": "iv_liquid",
+        "depends_on": "er_triage",
+        "rate": "753/1050"
+      },
+      {
+        "tool": "iv_liquid",
+        "depends_on": "er_sepsis_triage",
+        "rate": "753/1049"
+      },
+      {
+        "tool": "iv_liquid",
+        "depends_on": "iv_antibiotics",
+        "rate": "753/823"
+      },
+      {
+        "tool": "iv_antibiotics",
+        "depends_on": "er_registration",
+        "rate": "823/1050"
+      },
+      {
+        "tool": "iv_antibiotics",
+        "depends_on": "leucocytes",
+        "rate": "823/1012"
+      },
+      {
+        "tool": "iv_antibiotics",
+        "depends_on": "crp",
+        "rate": "823/1007"
+      },
+      {
+        "tool": "iv_antibiotics",
+        "depends_on": "er_triage",
+        "rate": "823/1050"
+      },
+      {
+        "tool": "iv_antibiotics",
+        "depends_on": "er_sepsis_triage",
+        "rate": "823/1049"
+      },
+      {
+        "tool": "admission_nc",
+        "depends_on": "er_registration",
+        "rate": "800/1050"
+      },
+      {
+        "tool": "admission_nc",
+        "depends_on": "er_triage",
+        "rate": "800/1050"
+      },
+      {
+        "tool": "release_a",
+        "depends_on": "er_registration",
+        "rate": "671/1050"
+      },
+      {
+        "tool": "release_a",
+        "depends_on": "er_triage",
+        "rate": "671/1050"
+      },
+      {
+        "tool": "return_er",
+        "depends_on": "er_registration",
+        "rate": "294/1050"
+      },
+      {
+        "tool": "return_er",
+        "depends_on": "er_triage",
+        "rate": "294/1050"
+      },
+      {
+        "tool": "return_er",
+        "depends_on": "admission_nc",
+        "rate": "294/800"
+      },
+      {
+        "tool": "admission_ic",
+        "depends_on": "er_registration",
+        "rate": "110/1050"
+      },
+      {
+        "tool": "admission_ic",
+        "depends_on": "leucocytes",
+        "rate": "110/1012"
+      },
+      {
+        "tool": "admission_ic",
+        "depends_on": "crp",
+        "rate": "110/1007"
+      },
+      {
+        "tool": "admission_ic",
+        "depends_on": "er_triage",
+        "rate": "110/1050"
+      }
+    ],
+    "fusion_candidates": [
+      [
+        "er_triage",
+        "admission_nc"
+      ],
+      [
+        "er_triage",
+        "crp"
+      ],
+      [
+        "er_sepsis_triage",
+        "admission_nc"
+      ],
+      [
+        "er_registration",
+        "er_triage"
+      ]
+    ],
+    "mutually_exclusive": [
+      [
+        "release_b",
+        "return_er"
+      ],
+      [
+        "release_a",
+        "release_b"
+      ],
+      [
+        "release_a",
+        "release_e"
+      ],
+      [
+        "release_b",
+        "release_e"
+      ],
+      [
+        "release_c",
+        "release_e"
+      ],
+      [
+        "release_d",
+        "release_e"
+      ],
+      [
+        "release_a",
+        "release_c"
+      ],
+      [
+        "release_b",
+        "release_c"
+      ],
+      [
+        "release_a",
+        "release_d"
+      ],
+      [
+        "release_b",
+        "release_d"
+      ],
+      [
+        "release_c",
+        "release_d"
+      ]
+    ],
+    "conflicting_orders_resolved": [
+      {
+        "chose": "er_sepsis_triage -> leucocytes"
+      },
+      {
+        "chose": "crp -> leucocytes"
+      },
+      {
+        "chose": "lacticacid -> leucocytes"
+      },
+      {
+        "chose": "er_sepsis_triage -> lacticacid"
+      },
+      {
+        "chose": "crp -> iv_liquid"
+      },
+      {
+        "chose": "er_sepsis_triage -> iv_liquid"
+      },
+      {
+        "chose": "er_triage -> iv_liquid"
+      },
+      {
+        "chose": "crp -> iv_antibiotics"
+      },
+      {
+        "chose": "leucocytes -> iv_liquid"
+      },
+      {
+        "chose": "leucocytes -> iv_antibiotics"
+      },
+      {
+        "chose": "leucocytes -> admission_nc"
+      },
+      {
+        "chose": "crp -> admission_nc"
+      },
+      {
+        "chose": "lacticacid -> iv_liquid"
+      },
+      {
+        "chose": "lacticacid -> iv_antibiotics"
+      },
+      {
+        "chose": "lacticacid -> admission_nc"
+      },
+      {
+        "chose": "lacticacid -> crp"
+      },
+      {
+        "chose": "er_triage -> er_sepsis_triage"
+      },
+      {
+        "chose": "er_sepsis_triage -> crp"
+      },
+      {
+        "chose": "iv_liquid -> iv_antibiotics"
+      },
+      {
+        "chose": "iv_liquid -> admission_nc"
+      },
+      {
+        "chose": "iv_antibiotics -> admission_nc"
+      }
+    ],
+    "variable_params": {
+      "leucocytes": [
+        "Leucocytes"
+      ],
+      "crp": [
+        "CRP"
+      ],
+      "lacticacid": [
+        "LacticAcid"
+      ],
+      "admission_nc": [
+        "department"
+      ]
+    }
+  },
+  "calls": [
+    {
+      "id": "step_1_er_registration",
+      "tool": "er_registration",
+      "input": {
+        "department": "A"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_2_er_sepsis_triage",
+      "tool": "er_sepsis_triage",
+      "input": {
+        "department": "A"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_er_registration"
+      ]
+    },
+    {
+      "id": "step_3_er_triage",
+      "tool": "er_triage",
+      "input": {
+        "department": "C"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_er_registration"
+      ]
+    },
+    {
+      "id": "step_4_iv_liquid",
+      "tool": "iv_liquid",
+      "input": {
+        "department": "A"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_er_registration"
+      ]
+    },
+    {
+      "id": "step_5_admission_nc",
+      "tool": "admission_nc",
+      "input": {},
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_er_registration",
+        "step_2_er_sepsis_triage",
+        "step_3_er_triage"
+      ]
+    },
+    {
+      "id": "step_6_crp",
+      "tool": "crp",
+      "input": {
+        "department": "B"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_er_registration",
+        "step_3_er_triage"
+      ]
+    },
+    {
+      "id": "step_7_iv_antibiotics",
+      "tool": "iv_antibiotics",
+      "input": {
+        "department": "A"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_er_registration",
+        "step_2_er_sepsis_triage",
+        "step_3_er_triage"
+      ]
+    },
+    {
+      "id": "step_8_lacticacid",
+      "tool": "lacticacid",
+      "input": {
+        "department": "B"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_er_registration",
+        "step_3_er_triage"
+      ]
+    },
+    {
+      "id": "step_9_leucocytes",
+      "tool": "leucocytes",
+      "input": {
+        "department": "B"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_er_registration",
+        "step_3_er_triage"
+      ]
+    },
+    {
+      "id": "step_10_release_a",
+      "tool": "release_a",
+      "input": {
+        "department": "E"
+      },
+      "compilation": "compiled",
+      "waits_for": [
+        "step_1_er_registration",
+        "step_2_er_sepsis_triage",
+        "step_3_er_triage",
+        "step_4_iv_liquid",
+        "step_5_admission_nc",
+        "step_6_crp",
+        "step_7_iv_antibiotics",
+        "step_8_lacticacid",
+        "step_9_leucocytes"
+      ]
+    }
+  ]
+}

@@ -3,35 +3,23 @@
     "strategy": "asp",
     "source_runs": 177,
     "core_tools": [
-      "gmail_get_thread",
       "gmail_list_threads",
       "gmail_search",
-      "sheets_read",
-      "sheets_update_values"
+      "sheets_read"
     ],
     "phases": {
       "0": [
-        "gmail_search"
-      ],
-      "1": [
+        "gmail_list_threads",
+        "gmail_search",
         "sheets_read"
-      ],
-      "2": [
-        "gmail_list_threads"
-      ],
-      "3": [
-        "gmail_get_thread"
-      ],
-      "4": [
-        "sheets_update_values"
       ]
     }
   },
   "_boundary": {
-    "compiled_steps": 11,
+    "compiled_steps": 7,
     "total_observed_tool_types": 11,
-    "core_tool_types": 5,
-    "compilation_ratio": 0.45
+    "core_tool_types": 3,
+    "compilation_ratio": 0.27
   },
   "_analysis": {
     "conditionals": [
@@ -96,16 +84,7 @@
         "rate": "1/3"
       }
     ],
-    "fusion_candidates": [
-      [
-        "gmail_search",
-        "gmail_get_thread"
-      ],
-      [
-        "gmail_list_threads",
-        "gmail_get_thread"
-      ]
-    ],
+    "fusion_candidates": [],
     "mutually_exclusive": [
       [
         "gmail_get_attachment",
@@ -153,35 +132,44 @@
       },
       {
         "chose": "sheets_read -> gmail_list_threads"
-      },
-      {
-        "chose": "sheets_read -> gmail_get_thread"
       }
     ],
     "variable_params": {
       "gmail_search": [
         "query"
-      ],
-      "gmail_get_thread": [
-        "thread_id"
-      ],
-      "sheets_update_values": [
-        "range",
-        "target_sheet",
-        "target_col_start",
-        "target_col_end",
-        "target_row_start",
-        "target_row_end",
-        "target_col_count",
-        "target_row_count",
-        "value_row_count",
-        "value_col_count"
       ]
     }
   },
   "calls": [
     {
-      "id": "step_1_gmail_search_0",
+      "id": "step_1_gmail_list_threads_0",
+      "tool": "gmail_list_threads",
+      "input": {
+        "labels": "INBOX",
+        "account": "acct_4"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_1_gmail_list_threads_1",
+      "tool": "gmail_list_threads",
+      "input": {
+        "labels": "INBOX",
+        "account": "acct_5"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_1_gmail_list_threads_2",
+      "tool": "gmail_list_threads",
+      "input": {
+        "labels": "INBOX",
+        "account": "acct_2"
+      },
+      "compilation": "compiled"
+    },
+    {
+      "id": "step_2_gmail_search_0",
       "tool": "gmail_search",
       "input": {
         "max_results": "20",
@@ -190,7 +178,7 @@
       "compilation": "compiled"
     },
     {
-      "id": "step_1_gmail_search_1",
+      "id": "step_2_gmail_search_1",
       "tool": "gmail_search",
       "input": {
         "max_results": "20",
@@ -199,7 +187,7 @@
       "compilation": "compiled"
     },
     {
-      "id": "step_1_gmail_search_2",
+      "id": "step_2_gmail_search_2",
       "tool": "gmail_search",
       "input": {
         "max_results": "20",
@@ -208,7 +196,7 @@
       "compilation": "compiled"
     },
     {
-      "id": "step_2_sheets_read",
+      "id": "step_3_sheets_read",
       "tool": "sheets_read",
       "input": {
         "spreadsheet": [
@@ -222,137 +210,7 @@
         ],
         "max_rows": "50"
       },
-      "compilation": "compiled",
-      "waits_for": [
-        "step_1_gmail_search_0",
-        "step_1_gmail_search_1",
-        "step_1_gmail_search_2"
-      ]
-    },
-    {
-      "id": "step_3_gmail_list_threads_0",
-      "tool": "gmail_list_threads",
-      "input": {
-        "labels": "INBOX",
-        "account": "acct_4"
-      },
-      "compilation": "compiled",
-      "waits_for": [
-        "step_1_gmail_search_0",
-        "step_1_gmail_search_1",
-        "step_1_gmail_search_2",
-        "step_2_sheets_read"
-      ]
-    },
-    {
-      "id": "step_3_gmail_list_threads_1",
-      "tool": "gmail_list_threads",
-      "input": {
-        "labels": "INBOX",
-        "account": "acct_5"
-      },
-      "compilation": "compiled",
-      "waits_for": [
-        "step_1_gmail_search_0",
-        "step_1_gmail_search_1",
-        "step_1_gmail_search_2",
-        "step_2_sheets_read"
-      ]
-    },
-    {
-      "id": "step_3_gmail_list_threads_2",
-      "tool": "gmail_list_threads",
-      "input": {
-        "labels": "INBOX",
-        "account": "acct_2"
-      },
-      "compilation": "compiled",
-      "waits_for": [
-        "step_1_gmail_search_0",
-        "step_1_gmail_search_1",
-        "step_1_gmail_search_2",
-        "step_2_sheets_read"
-      ]
-    },
-    {
-      "id": "step_4_gmail_get_thread_0",
-      "tool": "gmail_get_thread",
-      "input": {
-        "account": "acct_5"
-      },
-      "compilation": "compiled",
-      "waits_for": [
-        "step_1_gmail_search_0",
-        "step_1_gmail_search_1",
-        "step_1_gmail_search_2",
-        "step_2_sheets_read",
-        "step_3_gmail_list_threads_0",
-        "step_3_gmail_list_threads_1",
-        "step_3_gmail_list_threads_2"
-      ]
-    },
-    {
-      "id": "step_4_gmail_get_thread_1",
-      "tool": "gmail_get_thread",
-      "input": {
-        "account": "acct_4"
-      },
-      "compilation": "compiled",
-      "waits_for": [
-        "step_1_gmail_search_0",
-        "step_1_gmail_search_1",
-        "step_1_gmail_search_2",
-        "step_2_sheets_read",
-        "step_3_gmail_list_threads_0",
-        "step_3_gmail_list_threads_1",
-        "step_3_gmail_list_threads_2"
-      ]
-    },
-    {
-      "id": "step_4_gmail_get_thread_2",
-      "tool": "gmail_get_thread",
-      "input": {
-        "account": "acct_2"
-      },
-      "compilation": "compiled",
-      "waits_for": [
-        "step_1_gmail_search_0",
-        "step_1_gmail_search_1",
-        "step_1_gmail_search_2",
-        "step_2_sheets_read",
-        "step_3_gmail_list_threads_0",
-        "step_3_gmail_list_threads_1",
-        "step_3_gmail_list_threads_2"
-      ]
-    },
-    {
-      "id": "step_5_sheets_update_values",
-      "tool": "sheets_update_values",
-      "input": {
-        "spreadsheet": [
-          "spreadsheet_2",
-          "spreadsheet_1"
-        ],
-        "account": "acct_3",
-        "value_type": [
-          "detail_fill",
-          "status_flip"
-        ],
-        "value_constant": "Completed \u2705"
-      },
-      "compilation": "compiled",
-      "waits_for": [
-        "step_1_gmail_search_0",
-        "step_1_gmail_search_1",
-        "step_1_gmail_search_2",
-        "step_2_sheets_read",
-        "step_3_gmail_list_threads_0",
-        "step_3_gmail_list_threads_1",
-        "step_3_gmail_list_threads_2",
-        "step_4_gmail_get_thread_0",
-        "step_4_gmail_get_thread_1",
-        "step_4_gmail_get_thread_2"
-      ]
+      "compilation": "compiled"
     }
   ]
 }

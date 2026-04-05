@@ -9,6 +9,7 @@ dependencies = [
     "egglog>=13.1.0",
     "huggingface-hub>=1.8.0",
     "numpy>=2.4.4",
+    "pm4py>=2.7.22",
     "requests>=2.33.1",
     "rerun-sdk>=0.31.1",
     "scipy>=1.17.1",
