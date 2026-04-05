@@ -6,6 +6,7 @@ requires-python = ">=3.12"
 dependencies = [
     "clingo>=5.8.0",
     "datasets>=4.8.4",
+    "egglog>=13.1.0",
     "huggingface-hub>=1.8.0",
     "numpy>=2.4.4",
     "requests>=2.33.1",

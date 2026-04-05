@@ -1,0 +1,222 @@
+// mine_patterns.dl — Soufflé port of mine_patterns.lp (monotonic fragment)
+//
+// Direct translation of rules/mine_patterns.lp to Soufflé Datalog.
+// Covers everything EXCEPT choice rules and #minimize.
+//
+// Usage:
+//   souffle -F facts_dir -D output_dir mine_patterns.dl
+
+// === Input relations (trace facts) ===
+
+.decl job(id: symbol)
+.input job
+
+.decl call(job: symbol, step: symbol, tool: symbol, status: symbol)
+.input call
+
+.decl depends(job: symbol, step: symbol, dep: symbol)
+.input depends
+
+.decl spawned_by(job: symbol, step: symbol, parent: symbol)
+.input spawned_by
+
+.decl param(job: symbol, step: symbol, key: symbol, value: symbol)
+.input param
+
+// === Glue tools (not part of actual workflow) ===
+
+.decl glue_tool(tool: symbol)
+glue_tool("llm_generate").
+glue_tool("notify_user").
+glue_tool("prompt_user").
+
+// === Derived relations ===
+
+// Actionable calls: completed or failed, not glue
+.decl actionable_call(job: symbol, step: symbol, tool: symbol)
+actionable_call(J, C, T) :- call(J, C, T, "completed"), !glue_tool(T).
+actionable_call(J, C, T) :- call(J, C, T, "failed"), !glue_tool(T).
+
+// Tool appears in a run
+.decl tool_in_job(job: symbol, tool: symbol)
+tool_in_job(J, T) :- actionable_call(J, _, T).
+
+// All known tools
+.decl known_tool(tool: symbol)
+known_tool(T) :- tool_in_job(_, T).
+
+// === Aggregates ===
+
+// Count of runs
+.decl job_count(n: number)
+job_count(N) :- N = count : job(_).
+
+// Count of runs per tool
+.decl tool_job_count(tool: symbol, n: number)
+tool_job_count(T, N) :- known_tool(T), N = count : tool_in_job(_, T).
+
+// Core tool: appears in >= 50% of runs
+.decl core_tool(tool: symbol)
+core_tool(T) :- tool_job_count(T, N), job_count(Total), N * 2 >= Total.
+
+// === Transitive dependency ===
+
+.decl depends_transitive(job: symbol, step: symbol, dep: symbol)
+depends_transitive(J, A, B) :- depends(J, A, B).
+depends_transitive(J, A, C) :- depends(J, A, B), depends_transitive(J, B, C).
+
+// === Ordering ===
+
+// T1 precedes T2: T2's parent depends transitively on T1's parent
+.decl precedes_in_job(job: symbol, t1: symbol, t2: symbol)
+precedes_in_job(J, T1, T2) :-
+    actionable_call(J, C1, T1),
+    actionable_call(J, C2, T2),
+    spawned_by(J, C1, P1),
+    spawned_by(J, C2, P2),
+    P1 != P2, T1 != T2,
+    core_tool(T1), core_tool(T2),
+    depends_transitive(J, P2, P1).
+
+// T2's parent directly waits for a call of T1
+precedes_in_job(J, T1, T2) :-
+    actionable_call(J, C1, T1),
+    actionable_call(J, C2, T2),
+    spawned_by(J, C2, P2),
+    depends(J, P2, C1),
+    T1 != T2,
+    core_tool(T1), core_tool(T2).
+
+// Count evidence for ordering directions
+.decl order_evidence(t1: symbol, t2: symbol, n: number)
+order_evidence(T1, T2, N) :-
+    core_tool(T1), core_tool(T2), T1 != T2,
+    precedes_in_job(_, T1, T2),
+    N = count : precedes_in_job(_, T1, T2).
+
+// Consistent ordering: T1 before T2, never T2 before T1
+.decl consistent_order(t1: symbol, t2: symbol)
+consistent_order(T1, T2) :-
+    precedes_in_job(_, T1, T2),
+    !precedes_in_job(_, T2, T1).
+
+// Conflicting ordering: both directions observed
+.decl conflicting_order(t1: symbol, t2: symbol)
+conflicting_order(T1, T2) :-
+    precedes_in_job(_, T1, T2),
+    precedes_in_job(_, T2, T1),
+    T1 < T2.
+
+// === Parallel detection ===
+
+.decl parallel_pair(t1: symbol, t2: symbol)
+parallel_pair(T1, T2) :-
+    actionable_call(J, C1, T1),
+    actionable_call(J, C2, T2),
+    spawned_by(J, C1, P),
+    spawned_by(J, C2, P),
+    T1 < T2,
+    core_tool(T1), core_tool(T2).
+
+// === Conditional execution ===
+
+.decl b_without_a(b: symbol, a: symbol)
+b_without_a(B, A) :- tool_in_job(J, B), !tool_in_job(J, A), known_tool(A), known_tool(B).
+
+.decl conditional_tool(b: symbol, a: symbol)
+conditional_tool(B, A) :-
+    known_tool(A), known_tool(B), A != B,
+    tool_job_count(A, NA), tool_job_count(B, NB),
+    NB < NA, NB > 0,
+    NB * 10 >= NA,
+    !b_without_a(B, A).
+
+.decl conditional_rate(b: symbol, a: symbol, nb: number, na: number)
+conditional_rate(B, A, NB, NA) :-
+    conditional_tool(B, A),
+    tool_job_count(A, NA),
+    tool_job_count(B, NB).
+
+// === Co-occurrence and fusion ===
+
+.decl split_occurrence(a: symbol, b: symbol)
+split_occurrence(A, B) :- tool_in_job(J, A), !tool_in_job(J, B), known_tool(A), known_tool(B), A < B.
+split_occurrence(A, B) :- tool_in_job(J, B), !tool_in_job(J, A), known_tool(A), known_tool(B), A < B.
+
+.decl co_occurs(a: symbol, b: symbol)
+co_occurs(A, B) :-
+    known_tool(A), known_tool(B), A < B,
+    tool_job_count(A, N), tool_job_count(B, N),
+    !split_occurrence(A, B).
+
+.decl has_intermediate(a: symbol, b: symbol)
+has_intermediate(A, B) :-
+    consistent_order(A, X), consistent_order(X, B),
+    core_tool(X), A != X, X != B.
+
+.decl fusion_candidate(a: symbol, b: symbol)
+fusion_candidate(A, B) :-
+    consistent_order(A, B),
+    !split_occurrence(A, B),
+    core_tool(A), core_tool(B),
+    !has_intermediate(A, B).
+
+// === Mutually exclusive ===
+
+.decl both_in_any_job(a: symbol, b: symbol)
+both_in_any_job(A, B) :- tool_in_job(J, A), tool_in_job(J, B), A < B.
+
+.decl mutually_exclusive(a: symbol, b: symbol)
+mutually_exclusive(A, B) :-
+    known_tool(A), known_tool(B), A < B,
+    tool_in_job(_, A), tool_in_job(_, B),
+    !both_in_any_job(A, B).
+
+// === Parameters ===
+
+.decl known_param(tool: symbol, key: symbol, value: symbol)
+known_param(T, K, V) :- actionable_call(_, C, T), param(_, C, K, V), core_tool(T).
+
+.decl param_value_count(tool: symbol, key: symbol, value: symbol, n: number)
+param_value_count(T, K, V, N) :-
+    known_param(T, K, V),
+    N = count : { actionable_call(J, C, T), param(J, C, K, V) },
+    N > 0.
+
+.decl stable_param(tool: symbol, key: symbol, value: symbol)
+stable_param(T, K, V) :-
+    param_value_count(T, K, V, N),
+    tool_job_count(T, Total),
+    N * 2 >= Total.
+
+.decl has_stable_value(tool: symbol, key: symbol)
+has_stable_value(T, K) :- stable_param(T, K, _).
+
+.decl variable_param(tool: symbol, key: symbol)
+variable_param(T, K) :- known_param(T, K, _), core_tool(T), !has_stable_value(T, K).
+
+// === Phase detection ===
+
+.decl has_core_predecessor(tool: symbol)
+has_core_predecessor(T) :- consistent_order(T2, T), core_tool(T2).
+
+.decl phase_zero(tool: symbol)
+phase_zero(T) :- core_tool(T), !has_core_predecessor(T).
+
+// === Output ===
+
+.output core_tool
+.output tool_job_count
+.output job_count
+.output consistent_order
+.output conflicting_order
+.output order_evidence
+.output parallel_pair
+.output conditional_tool
+.output conditional_rate
+.output co_occurs
+.output fusion_candidate
+.output mutually_exclusive
+.output stable_param
+.output variable_param
+.output phase_zero
