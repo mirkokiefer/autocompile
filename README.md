@@ -117,7 +117,22 @@ extract_booking_details:
   regex extraction     18/25 correct (72%)    not ready
 ```
 
-*Status: Planned. The benchmarking framework supports this but model comparison is not yet implemented.*
+*Status: WIP. The benchmarking framework supports this but model comparison is not yet implemented.*
+
+## Datalog backends
+
+The `datalog/` directory ports the monotonic fragment (~70% of the ASP rules) to three Datalog engines. All produce identical results to Clingo:
+
+```
+Engine         Solve time    Notes
+─────────────────────────────────────────────
+Clingo (ASP)      52ms       Full pipeline (choice rules + optimization)
+Soufflé          175ms       Compiled Datalog (includes subprocess overhead)
+egglog            39ms       Datalog + equality saturation
+Python            15s        Reference implementation (pure Python, no deps)
+```
+
+The remaining ~30% (conflicting order resolution via choice rules and `#minimize`) stays in Clingo. See `datalog/` for details.
 
 ## Trace format
 
@@ -146,14 +161,20 @@ autocompile/
 ├── src/
 │   ├── compile.py            # Trace → compiled workflow (ASP strategy)
 │   ├── benchmark.py          # Validate compiled workflow against traces
-│   ├── codegen.py            # Compiled workflow → executable program
-│   └── strategies/           # Compilation strategy modules
+│   └── codegen.py            # Compiled workflow → executable program
 ├── rules/
 │   ├── mine_patterns.lp      # ASP rules (50% threshold)
 │   └── mine_patterns_relaxed.lp  # ASP rules (25% threshold)
+├── datalog/
+│   ├── mine_patterns.dl      # Soufflé port of ASP rules
+│   ├── souffle_compile.py    # Soufflé runner
+│   ├── egglog_compile.py     # egglog runner
+│   ├── engine.py             # Pure Python Datalog evaluator
+│   └── compile.py            # Python engine runner
 ├── examples/
 │   ├── travel-updates/       # 177 runs (27 real + 150 synthetic)
 │   └── order-updates/        # 118 runs (100% real)
+├── experiments/              # Cross-domain prototypes (robotics, lab, edge compute)
 └── spec/
     └── trace-format.md       # Trace format specification
 ```
@@ -167,7 +188,7 @@ autocompile/
 
 ## Status
 
-Early-stage. Built for [Daslab](https://daslab.dev), where it compiles recurring AI agent workflows into deterministic job specs. The full pipeline works: observe → compile → benchmark → codegen. Model compilation and step fusion execution are next.
+Early-stage. Built for [Daslab](https://daslab.dev), where it compiles recurring AI agent workflows into deterministic job specs. The core pipeline works: observe → compile → benchmark → codegen. The `experiments/` directory has prototypes extending this to robotics, autonomous labs, and edge compute.
 
 ## License
 
