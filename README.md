@@ -1,8 +1,8 @@
 # autocompile
 
-AI agents spend most of their compute rediscovering the same workflows. Every run, the LLM re-derives which tools to call, in what order, with what parameters -- even when the answer is identical every time. This is expensive, slow, and unreliable.
+Most autonomous systems put an LLM in charge of every decision, every run. But most of those decisions were already answered by the last hundred runs. autocompile watches processes run and discovers their structure from data. What's invariant becomes compiled code. What varies becomes a parameter. What conflicts gets resolved by optimization. The LLM isn't eliminated -- it's relocated to exactly the decisions that require judgment.
 
-autocompile observes execution traces from repeated runs and compiles them into executable programs. Deterministic steps become direct function calls. Conditional branches are inferred from co-occurrence patterns. Conflicting orderings are resolved by optimization. The result is a runnable program with empirical accuracy metrics, where the LLM is only invoked for steps that genuinely require reasoning.
+The output is a program that separates the known from the unknown -- a map of where intelligence is actually needed, with empirical accuracy metrics for every compiled step.
 
 ## The pipeline
 
@@ -185,10 +185,11 @@ autocompile/
 - **Trace-based JIT** (V8, LuaJIT) -- Observe runtime behavior to decide what to optimize. autocompile infers the program itself from traces.
 - **Process mining** (Celonis) -- Discovers workflow models from event logs. autocompile compiles the discovered workflow into an executable program.
 - **Program synthesis** -- Generates programs from input/output examples. autocompile applies this at the workflow step level.
+- **Autonomous research** (autoresearch) -- LLM mutates code, keeps improvements. The LLM generates variations. autocompile discovers structure from observed variations instead.
 
 ## Status
 
-Early-stage. Built for [Daslab](https://daslab.dev), where it compiles recurring AI agent workflows into deterministic job specs. The core pipeline works: observe → compile → benchmark → codegen. The `experiments/` directory has prototypes extending this to robotics, autonomous labs, and edge compute.
+Early-stage. The core pipeline works on agent workflow traces today. The same ASP rules are domain-generic -- they work on any process that produces sequential action traces. The `experiments/` directory has prototypes for robotics (LeRobot), autonomous lab protocols, and edge compute pipelines.
 
 ## License
 
