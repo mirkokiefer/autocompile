@@ -1,6 +1,6 @@
 # autocompile
 
-Most autonomous systems put an LLM in charge of every decision, every run. But most of those decisions were already answered by the last hundred runs. autocompile watches processes run and discovers their structure from data. What's invariant becomes compiled code. What varies becomes a parameter. What conflicts gets resolved by optimization. The LLM isn't eliminated -- it's relocated to exactly the decisions that require judgment.
+AI agents spend most of their compute re-deriving decisions that were already answered by the last hundred runs. autocompile watches processes run and discovers their structure from data. What's invariant becomes compiled code. What varies becomes a parameter. What conflicts gets resolved by optimization. The LLM isn't eliminated -- it's relocated to exactly the decisions that require judgment.
 
 The output is a program that separates the known from the unknown -- a map of where intelligence is actually needed, with empirical accuracy metrics for every compiled step.
 
